@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="vaadintestlll-backend" />
+        <module name="vaadintestlll-production" />
+        <module name="vaadintestlll-ui" />
+        <module name="vaadintestlll-widgetset" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GeoDoorVisu" target="1.8" />
+      <module name="vaadintestlll" target="1.8" />
+      <module name="vaadintestlll-backend" target="1.8" />
+      <module name="vaadintestlll-production" target="1.8" />
+      <module name="vaadintestlll-ui" target="1.8" />
+      <module name="vaadintestlll-widgetset" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
