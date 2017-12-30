@@ -12,7 +12,7 @@
 //$v-border-radius: 4px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: hsl(210, 0%, 98%);
+$v-background-color: hsl(210, 0%, 20%);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: $v-background-color;
 
@@ -46,7 +46,7 @@ $login-info-width: 300px !default;
 $login-info-opacity: 0.7 !default;
 $login-background-color: $editor-background-color !default;
 // Get more background images from unsplash.com (remember to optimize the filesize)
-$login-background-image: "img/archetype-login-bg.jpg" !default;
+$login-background-image: "img/background.jpg" !default;
 
 $editor-shadow: 0 0 10px 10px rgba(0,0,0,.1) !default;
 $editor-embed-background-color: darken($editor-background-color, 5%) !default;
@@ -62,7 +62,6 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
 
 @import "../valo/valo.scss";
-
 
 @mixin mytheme {
   @include valo;
@@ -111,7 +110,8 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       width: $login-info-width;
       height: 100%;
       background: $v-selection-color; // For IE8
-      background-color: rgba($v-selection-color, $login-info-opacity);
+      //background-color: rgba($v-selection-color, $login-info-opacity);
+      background-color: rgba(19, 18, 18, 0.8);
       padding: $v-layout-margin;
       color: valo-font-color($v-selection-color, 0.9);
       @include animation(valo-animate-in-fade 1s 1s backwards);
@@ -131,7 +131,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
         height: 100%;
       }
     }
-  }
+   }
 
   // makes the CRUD view keep the sidebar editor within the view as sidebar is absolutely positioned
   .crud-view {
