@@ -9,9 +9,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class ProductDataProvider
+public class ClientDataProvider
         extends AbstractDataProvider<Client, String> {
-    
+
     /** Text filter that can be changed separately. */
     private String filterText = "";
 
@@ -39,15 +39,16 @@ public class ProductDataProvider
      *            the client to be deleted
      */
     public void delete(Client client) {
-        DataService.get().deleteProduct(client.getId());
+        SocketConnector.delete(client);
+        //DataService.get().deleteProduct(client.getId());
         refreshAll();
     }
-    
+
     /**
      * Sets the filter to use for the this data provider and refreshes data.
      * <p>
      * Filter is compared for client name, availability and category.
-     * 
+     *
      * @param filterText
      *           the text to filter by, never null
      */
@@ -58,17 +59,17 @@ public class ProductDataProvider
             return;
         }
         this.filterText = filterText.trim();
-        
+
         refreshAll();
     }
-    
+
     @Override
     public Integer getId(Client client) {
         Objects.requireNonNull(client, "Cannot provide an id for a null client.");
 
         return client.getId();
     }
-    
+
     @Override
     public boolean isInMemory() {
         return true;
@@ -94,3 +95,4 @@ public class ProductDataProvider
                 .contains(filterText);
     }
 }
+

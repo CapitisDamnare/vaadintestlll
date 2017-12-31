@@ -27,7 +27,7 @@ import com.vaadin.server.Page;
  */
 public class ProductForm extends ProductFormDesign {
 
-    private SampleCrudLogic viewLogic;
+    //private SampleCrudLogic viewLogic;
     private Binder<Product> binder;
     private Product currentProduct;
 
@@ -60,56 +60,56 @@ public class ProductForm extends ProductFormDesign {
 
     }
 
-    public ProductForm(SampleCrudLogic sampleCrudLogic) {
-        super();
-        addStyleName("product-form");
-        viewLogic = sampleCrudLogic;
+//    public ProductForm(SampleCrudLogic sampleCrudLogic) {
+//        super();
+//        addStyleName("product-form");
+//        //viewLogic = sampleCrudLogic;
+//
+//        // Mark the stock count field as numeric.
+//        // This affects the virtual keyboard shown on mobile devices.
+//        AttributeExtension stockFieldExtension = new AttributeExtension();
+//        stockFieldExtension.extend(stockCount);
+//        stockFieldExtension.setAttribute("type", "number");
+//
+//        availability.setItems(Availability.values());
+//        availability.setEmptySelectionAllowed(false);
+//
+//        binder = new BeanValidationBinder<>(Product.class);
+//        binder.forField(price).withConverter(new EuroConverter())
+//                .bind("price");
+//        binder.forField(stockCount).withConverter(new StockPriceConverter())
+//                .bind("stockCount");
+//
+//        category.setItemCaptionGenerator(Category::getName);
+//        binder.forField(category).bind("category");
+//        binder.bindInstanceFields(this);
+//
+//        // enable/disable save button while editing
+//        binder.addStatusChangeListener(event -> {
+//            boolean isValid = !event.hasValidationErrors();
+//            boolean hasChanges = binder.hasChanges();
+//            save.setEnabled(hasChanges && isValid);
+//            discard.setEnabled(hasChanges);
+//        });
+//
+//        save.addClickListener(event -> {
+//            if (currentProduct != null
+//                    && binder.writeBeanIfValid(currentProduct)) {
+//                //viewLogic.saveProduct(currentProduct);
+//            }
+//        });
 
-        // Mark the stock count field as numeric.
-        // This affects the virtual keyboard shown on mobile devices.
-        AttributeExtension stockFieldExtension = new AttributeExtension();
-        stockFieldExtension.extend(stockCount);
-        stockFieldExtension.setAttribute("type", "number");
-
-        availability.setItems(Availability.values());
-        availability.setEmptySelectionAllowed(false);
-
-        binder = new BeanValidationBinder<>(Product.class);
-        binder.forField(price).withConverter(new EuroConverter())
-                .bind("price");
-        binder.forField(stockCount).withConverter(new StockPriceConverter())
-                .bind("stockCount");
-
-        category.setItemCaptionGenerator(Category::getName);
-        binder.forField(category).bind("category");
-        binder.bindInstanceFields(this);
-
-        // enable/disable save button while editing
-        binder.addStatusChangeListener(event -> {
-            boolean isValid = !event.hasValidationErrors();
-            boolean hasChanges = binder.hasChanges();
-            save.setEnabled(hasChanges && isValid);
-            discard.setEnabled(hasChanges);
-        });
-
-        save.addClickListener(event -> {
-            if (currentProduct != null
-                    && binder.writeBeanIfValid(currentProduct)) {
-                viewLogic.saveProduct(currentProduct);
-            }
-        });
-
-        discard.addClickListener(
-                event -> viewLogic.editProduct(currentProduct));
-
-        cancel.addClickListener(event -> viewLogic.cancelProduct());
-
-        delete.addClickListener(event -> {
-            if (currentProduct != null) {
-                viewLogic.deleteProduct(currentProduct);
-            }
-        });
-    }
+//        discard.addClickListener(
+//                event -> viewLogic.editProduct(currentProduct));
+//
+//        cancel.addClickListener(event -> viewLogic.cancelProduct());
+//
+//        delete.addClickListener(event -> {
+//            if (currentProduct != null) {
+//                //viewLogic.deleteProduct(currentProduct);
+//            }
+//        });
+//    }
 
     public void setCategories(Collection<Category> categories) {
         category.setItems(categories);

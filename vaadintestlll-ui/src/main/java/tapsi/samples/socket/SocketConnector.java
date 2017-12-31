@@ -1,6 +1,7 @@
 package tapsi.samples.socket;
 
 import javafx.util.Pair;
+import tapsi.samples.crud.Client;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 public final class SocketConnector {
+
+    private static List<Client> users = new ArrayList<>();
 
     private static int serverPort;
     private static String serverIPAddress;
@@ -22,6 +25,10 @@ public final class SocketConnector {
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
+    }
+
+    public static List<Client> getUsers() {
+        return users;
     }
 
     public static boolean initConnection() {
@@ -76,14 +83,62 @@ public final class SocketConnector {
 
     public static void printAll(Pair<String, List<List<String>>> msg) {
         System.out.println(msg.getKey());
+        users = new ArrayList<>();
         List<List<String>> clients = msg.getValue();
         ListIterator<List<String>> iterator = clients.listIterator();
         while (iterator.hasNext()) {
             List<String> client = iterator.next();
+            Client user = new Client(client);
+            users.add(user);
             ListIterator<String> innerIterator = client.listIterator();
             while (innerIterator.hasNext()) {
                 System.out.println(innerIterator.next());
             }
         }
+    }
+
+    public static Client getProductByID(int clientID) {
+        ListIterator<Client> iterator = users.listIterator();
+        while (iterator.hasNext()) {
+            Client client = iterator.next();
+            if (client.getId() == clientID)
+                return client;
+        }
+        return null;
+    }
+
+    public static void save(Client newClient) {
+        ListIterator<Client> iterator = users.listIterator();
+        while (iterator.hasNext()) {
+            Client client = iterator.next();
+            if (client.getId().equals(newClient.getId())) {
+                client.setId(newClient.getId());
+                client.setName(newClient.getName());
+                client.setPhoneID(newClient.getPhoneID());
+                client.setThreadID(newClient.getThreadID());
+                client.setAllowed(newClient.getAllowed());
+                client.setLastConnection(newClient.getLastConnection());
+                return;
+            }
+        }
+
+    }
+
+    public static void delete(Client newClient) {
+        int index = 0;
+        ListIterator<Client> iterator = users.listIterator();
+        while (iterator.hasNext()) {
+            Client client = iterator.next();
+            if (client.getId().equals(newClient.getId())) {
+                return;
+            }
+            else
+                index++;
+        }
+        users.remove(index);
+    }
+
+    public static void addUser(Client client) {
+        users.add(client);
     }
 }

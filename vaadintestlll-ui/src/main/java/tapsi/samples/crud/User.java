@@ -1,5 +1,6 @@
 package tapsi.samples.crud;
 
+import com.vaadin.ui.*;
 import tapsi.samples.ResetButtonForTextField;
 import tapsi.samples.backend.DataService;
 import tapsi.samples.backend.data.Product;
@@ -7,15 +8,10 @@ import tapsi.samples.backend.data.Product;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import tapsi.samples.socket.SocketConnector;
+import tapsi.samples.socket.SocketThread;
 
 /**
  * A view for performing create-read-update-delete operations on products.
@@ -26,31 +22,34 @@ import com.vaadin.ui.themes.ValoTheme;
 public class User extends CssLayout implements View {
 
     public static final String VIEW_NAME = "User";
-    private ProductGrid grid;
-    private ProductForm form;
+    private Label pageLabel;
+    private ClientGrid grid;
+    private UserForm form;
     private TextField filter;
 
-    private SampleCrudLogic viewLogic = new SampleCrudLogic(this);
+    private UserLogic viewLogic = new UserLogic(this);
     private Button newProduct;
 
-    private ProductDataProvider dataProvider = new ProductDataProvider();
+    private ClientDataProvider dataProvider = new ClientDataProvider();
 
     public User() {
         setSizeFull();
         addStyleName("crud-view");
+        HorizontalLayout pageLayout = createPageLabel();
         HorizontalLayout topLayout = createTopBar();
 
-        grid = new ProductGrid();
+        grid = new ClientGrid();
         grid.setDataProvider(dataProvider);
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
+        //grid.setColumns("id","name","phoneID","threadID","allowed","lastConnection");
+        grid.setSizeFull();
 
-        form = new ProductForm(viewLogic);
-        form.setCategories(DataService.get().getAllCategories());
+        form = new UserForm(viewLogic);
+        //form.setCategories(DataService.get().getAllCategories());
 
         VerticalLayout barAndGridLayout = new VerticalLayout();
-        barAndGridLayout.addComponent(topLayout);
-        barAndGridLayout.addComponent(grid);
+        barAndGridLayout.addComponents(pageLayout,topLayout, grid);
         barAndGridLayout.setSizeFull();
         barAndGridLayout.setExpandRatio(grid, 1);
         barAndGridLayout.setStyleName("crud-main-layout");
@@ -58,7 +57,22 @@ public class User extends CssLayout implements View {
         addComponent(barAndGridLayout);
         addComponent(form);
 
+        grid.setItems(SocketConnector.getUsers());
         viewLogic.init();
+    }
+
+    public HorizontalLayout createPageLabel () {
+        HorizontalLayout pageLayout = new HorizontalLayout();
+        pageLabel = new Label("Settings");
+        pageLabel.setStyleName("page_label");
+
+        pageLayout.setSizeFull();
+        pageLayout.setStyleName("page_label_layout");
+        pageLayout.setHeight("65px");
+        pageLayout.setMargin(false);
+        pageLayout.addComponents(pageLabel);
+        pageLayout.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
+        return pageLayout;
     }
 
     public HorizontalLayout createTopBar() {
@@ -72,7 +86,7 @@ public class User extends CssLayout implements View {
         newProduct = new Button("New product");
         newProduct.addStyleName(ValoTheme.BUTTON_PRIMARY);
         newProduct.setIcon(VaadinIcons.PLUS_CIRCLE);
-        newProduct.addClickListener(click -> viewLogic.newProduct());
+        newProduct.addClickListener(click -> viewLogic.newClient());
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
@@ -105,31 +119,31 @@ public class User extends CssLayout implements View {
         grid.getSelectionModel().deselectAll();
     }
 
-    public void selectRow(Product row) {
+    public void selectRow(Client row) {
         grid.getSelectionModel().select(row);
     }
 
-    public Product getSelectedRow() {
+    public Client getSelectedRow() {
         return grid.getSelectedRow();
     }
 
-    public void updateProduct(Product product) {
-        dataProvider.save(product);
+    public void updateProduct(Client client) {
+        dataProvider.delete(client);
         // FIXME: Grid used to scroll to the updated item
     }
 
-    public void removeProduct(Product product) {
-        dataProvider.delete(product);
+    public void removeClient(Client client) {
+        dataProvider.delete(client);
     }
 
-    public void editProduct(Product product) {
-        if (product != null) {
+    public void editProduct(Client client) {
+        if (client != null) {
             form.addStyleName("visible");
             form.setEnabled(true);
         } else {
             form.removeStyleName("visible");
             form.setEnabled(false);
         }
-        form.editProduct(product);
+        form.editProduct(client);
     }
 }

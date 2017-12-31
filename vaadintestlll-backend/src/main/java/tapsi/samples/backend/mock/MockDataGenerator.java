@@ -70,11 +70,11 @@ public class MockDataGenerator {
         p.setProductName(generateName());
 
         p.setPrice(new BigDecimal((random.nextInt(250) + 50) / 10.0));
-        p.setAvailability(Availability.values()[random.nextInt(Availability
-                .values().length)]);
-        if (p.getAvailability() == Availability.AVAILABLE) {
-            p.setStockCount(random.nextInt(523));
-        }
+//        p.setAvailability(Availability.values()[random.nextInt(Availability
+//                .values().length)]);
+//        if (p.getAvailability() == Availability.AVAILABLE) {
+//            p.setStockCount(random.nextInt(523));
+//        }
 
         p.setCategory(getCategory(categories, 1, 2));
         return p;
