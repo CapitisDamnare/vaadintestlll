@@ -10,7 +10,7 @@ public class SocketThread {
     private static Boolean registered = false;
 
     public SocketThread() {
-        register("visuRegister:GeoDoorVisu");
+        //register("visuRegister:GeoDoorVisu");
     }
 
     public static void sendMessage(String message) {

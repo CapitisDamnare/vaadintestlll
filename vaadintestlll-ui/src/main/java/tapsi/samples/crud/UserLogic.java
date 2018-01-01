@@ -39,8 +39,7 @@ public class UserLogic implements Serializable {
 
         Page page = MyUI.get().getPage();
         page.setUriFragment(
-                "!" + User.VIEW_NAME + "/" + fragmentParameter,
-                false);
+                "!" + User.VIEW_NAME + "/" + fragmentParameter, false);
     }
 
     public void enter(String clientID) {

@@ -1,11 +1,13 @@
 package tapsi.samples.crud;
 
+import tapsi.samples.socket.SocketConnector;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Client implements Serializable, Cloneable {
+public class Client implements Serializable {
 
     @NotNull
     private int id = -1;
@@ -21,7 +23,6 @@ public class Client implements Serializable, Cloneable {
     private String lastConnection = "";
 
     public Client() {
-
     }
 
     public Client(Integer id, String name, String phoneID, String threadID, Allowance allowed, String lastConnection) {
@@ -40,7 +41,7 @@ public class Client implements Serializable, Cloneable {
         this.phoneID = (String) iterator.next();
         this.threadID = (String) iterator.next();
 
-        if (Allowance.ALLOWED.equals(new Integer(iterator.next())))
+        if (new Integer(iterator.next()).equals(1))
             this.allowed = Allowance.ALLOWED;
         else
             this.allowed = Allowance.NOTALLOWED;

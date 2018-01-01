@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public final class SocketConnector {
+public final class SocketConnector implements Serializable {
 
     private static List<Client> users = new ArrayList<>();
 
@@ -82,7 +82,7 @@ public final class SocketConnector {
     }
 
     public static void printAll(Pair<String, List<List<String>>> msg) {
-        System.out.println(msg.getKey());
+        //System.out.println(msg.getKey());
         users = new ArrayList<>();
         List<List<String>> clients = msg.getValue();
         ListIterator<List<String>> iterator = clients.listIterator();
@@ -90,10 +90,10 @@ public final class SocketConnector {
             List<String> client = iterator.next();
             Client user = new Client(client);
             users.add(user);
-            ListIterator<String> innerIterator = client.listIterator();
-            while (innerIterator.hasNext()) {
-                System.out.println(innerIterator.next());
-            }
+//            ListIterator<String> innerIterator = client.listIterator();
+//            while (innerIterator.hasNext()) {
+//                System.out.println(innerIterator.next());
+//            }
         }
     }
 
@@ -104,10 +104,16 @@ public final class SocketConnector {
             if (client.getId() == clientID)
                 return client;
         }
+        System.out.println("Returned null!!!!");
         return null;
     }
 
     public static void save(Client newClient) {
+        if (newClient.getId().equals(-1)) {
+            addUser(newClient);
+            return;
+        }
+
         ListIterator<Client> iterator = users.listIterator();
         while (iterator.hasNext()) {
             Client client = iterator.next();
@@ -130,7 +136,7 @@ public final class SocketConnector {
         while (iterator.hasNext()) {
             Client client = iterator.next();
             if (client.getId().equals(newClient.getId())) {
-                return;
+                break;
             }
             else
                 index++;

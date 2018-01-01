@@ -27,6 +27,7 @@ public class ClientDataProvider
         SocketConnector.save(client);
         if (newClient) {
             refreshAll();
+            //refreshItem(client);
         } else {
             refreshItem(client);
         }
@@ -54,7 +55,7 @@ public class ClientDataProvider
      */
     public void setFilter(String filterText) {
         Objects.requireNonNull(filterText, "Filter text cannot be null");
-        filterText = filterText.toLowerCase();
+        //filterText = filterText.toLowerCase();
         if (Objects.equals(this.filterText, filterText.trim())) {
             return;
         }

@@ -12,6 +12,7 @@ public class UserForm extends UserFormDesign {
     private Binder<Client> binder;
 
     public UserForm(UserLogic viewLogic) {
+        super();
         this.viewLogic = viewLogic;
         addStyleName("product-form");
 
@@ -56,7 +57,6 @@ public class UserForm extends UserFormDesign {
     public void editProduct(Client client) {
         if (client == null) {
             client = new Client();
-            SocketConnector.addUser(client);
         }
         currentUser = client;
         binder.readBean(client);

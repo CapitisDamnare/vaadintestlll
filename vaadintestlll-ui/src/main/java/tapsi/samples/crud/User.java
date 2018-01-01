@@ -1,6 +1,9 @@
 package tapsi.samples.crud;
 
 import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
 import tapsi.samples.ResetButtonForTextField;
 import tapsi.samples.backend.DataService;
 import tapsi.samples.backend.data.Product;
@@ -12,6 +15,8 @@ import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.samples.socket.SocketConnector;
 import tapsi.samples.socket.SocketThread;
+
+import java.awt.*;
 
 /**
  * A view for performing create-read-update-delete operations on products.
@@ -43,7 +48,7 @@ public class User extends CssLayout implements View {
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
         //grid.setColumns("id","name","phoneID","threadID","allowed","lastConnection");
-        grid.setSizeFull();
+        //grid.setSizeFull();
 
         form = new UserForm(viewLogic);
         //form.setCategories(DataService.get().getAllCategories());
@@ -57,7 +62,6 @@ public class User extends CssLayout implements View {
         addComponent(barAndGridLayout);
         addComponent(form);
 
-        grid.setItems(SocketConnector.getUsers());
         viewLogic.init();
     }
 
@@ -128,7 +132,7 @@ public class User extends CssLayout implements View {
     }
 
     public void updateProduct(Client client) {
-        dataProvider.delete(client);
+        dataProvider.save(client);
         // FIXME: Grid used to scroll to the updated item
     }
 
