@@ -1,9 +1,8 @@
-package tapsi.samples.crud;
+package tapsi.samples.user;
 
 import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.data.Binder;
 import com.vaadin.server.Page;
-import tapsi.samples.socket.SocketConnector;
 
 public class UserForm extends UserFormDesign {
 

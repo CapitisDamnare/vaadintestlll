@@ -1,4 +1,4 @@
-package tapsi.samples.crud;
+package tapsi.samples.user;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Grid;

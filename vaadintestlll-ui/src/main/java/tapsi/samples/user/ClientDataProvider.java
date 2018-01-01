@@ -1,17 +1,16 @@
-package tapsi.samples.crud;
+package tapsi.samples.user;
 
 import com.vaadin.data.provider.AbstractDataProvider;
 import com.vaadin.data.provider.Query;
-import tapsi.samples.backend.DataService;
 import tapsi.samples.socket.SocketConnector;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class ProductDataProvider
+public class ClientDataProvider
         extends AbstractDataProvider<Client, String> {
-    
+
     /** Text filter that can be changed separately. */
     private String filterText = "";
 
@@ -27,6 +26,7 @@ public class ProductDataProvider
         SocketConnector.save(client);
         if (newClient) {
             refreshAll();
+            //refreshItem(client);
         } else {
             refreshItem(client);
         }
@@ -39,36 +39,37 @@ public class ProductDataProvider
      *            the client to be deleted
      */
     public void delete(Client client) {
-        DataService.get().deleteProduct(client.getId());
+        SocketConnector.delete(client);
+        //DataService.get().deleteProduct(client.getId());
         refreshAll();
     }
-    
+
     /**
      * Sets the filter to use for the this data provider and refreshes data.
      * <p>
      * Filter is compared for client name, availability and category.
-     * 
+     *
      * @param filterText
      *           the text to filter by, never null
      */
     public void setFilter(String filterText) {
         Objects.requireNonNull(filterText, "Filter text cannot be null");
-        filterText = filterText.toLowerCase();
+        //filterText = filterText.toLowerCase();
         if (Objects.equals(this.filterText, filterText.trim())) {
             return;
         }
         this.filterText = filterText.trim();
-        
+
         refreshAll();
     }
-    
+
     @Override
     public Integer getId(Client client) {
         Objects.requireNonNull(client, "Cannot provide an id for a null client.");
 
         return client.getId();
     }
-    
+
     @Override
     public boolean isInMemory() {
         return true;
@@ -94,3 +95,4 @@ public class ProductDataProvider
                 .contains(filterText);
     }
 }
+

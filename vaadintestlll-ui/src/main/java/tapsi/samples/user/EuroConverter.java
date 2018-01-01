@@ -1,4 +1,4 @@
-package tapsi.samples.crud;
+package tapsi.samples.user;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

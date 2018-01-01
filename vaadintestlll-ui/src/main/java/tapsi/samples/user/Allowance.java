@@ -1,11 +1,11 @@
-package tapsi.samples.backend.data;
+package tapsi.samples.user;
 
-public enum Availability {
+public enum Allowance {
     ALLOWED(1), NOTALLOWED(0);
 
     private final int allowed;
 
-    private Availability(int allowed) {
+    private Allowance(int allowed) {
         this.allowed = allowed;
     }
 

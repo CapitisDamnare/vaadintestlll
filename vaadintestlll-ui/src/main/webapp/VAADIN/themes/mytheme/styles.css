@@ -15546,7 +15546,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-ui[width-range~="0-800px"] .page_label {
-	margin-top: -35px;
+	margin-top: 0px;
+}
+
+.mytheme .v-ui[width-range~="0-800px"] .page_label_layout {
+	margin-top: -32px;
 }
 
 .mytheme .v-ui[width-range~="0-800px"] .logo {

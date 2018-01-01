@@ -128,8 +128,6 @@
 	</profiles>
   <modules>
     <module>vaadintestlll-widgetset</module>
-    <module>vaadintestlll-backend</module>
     <module>vaadintestlll-ui</module>
-    <module>vaadintestlll-production</module>
   </modules>
 </project>

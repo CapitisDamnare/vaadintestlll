@@ -251,8 +251,12 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   .v-ui[width-range~="0-800px"] {
 
     .page_label {
-      margin-top: -35px;
+      margin-top: -0px;
     }
+
+      .page_label_layout {
+        margin-top: -32px;;
+      }
 
     // Logo
     .logo {

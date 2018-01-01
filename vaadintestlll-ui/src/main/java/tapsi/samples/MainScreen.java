@@ -2,7 +2,7 @@ package tapsi.samples;
 
 import tapsi.MyUI;
 import tapsi.samples.about.AboutView;
-import tapsi.samples.crud.User;
+import tapsi.samples.user.User;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;

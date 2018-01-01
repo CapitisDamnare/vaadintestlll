@@ -1,29 +1,14 @@
-package tapsi.samples.crud;
-
-import com.vaadin.ui.*;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
-import tapsi.samples.ResetButtonForTextField;
-import tapsi.samples.backend.DataService;
-import tapsi.samples.backend.data.Product;
+package tapsi.samples.user;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
-import tapsi.samples.socket.SocketConnector;
-import tapsi.samples.socket.SocketThread;
+import tapsi.samples.ResetButtonForTextField;
 
-import java.awt.*;
 
-/**
- * A view for performing create-read-update-delete operations on products.
- *
- * See also {@link SampleCrudLogic} for fetching the data, the actual CRUD
- * operations and controlling the view based on events from outside.
- */
 public class User extends CssLayout implements View {
 
     public static final String VIEW_NAME = "User";

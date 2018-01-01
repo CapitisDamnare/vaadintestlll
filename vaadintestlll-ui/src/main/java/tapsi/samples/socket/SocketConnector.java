@@ -1,7 +1,7 @@
 package tapsi.samples.socket;
 
 import javafx.util.Pair;
-import tapsi.samples.crud.Client;
+import tapsi.samples.user.Client;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -90,10 +90,6 @@ public final class SocketConnector implements Serializable {
             List<String> client = iterator.next();
             Client user = new Client(client);
             users.add(user);
-//            ListIterator<String> innerIterator = client.listIterator();
-//            while (innerIterator.hasNext()) {
-//                System.out.println(innerIterator.next());
-//            }
         }
     }
 

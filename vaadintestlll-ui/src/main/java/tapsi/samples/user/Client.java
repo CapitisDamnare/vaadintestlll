@@ -1,6 +1,4 @@
-package tapsi.samples.crud;
-
-import tapsi.samples.socket.SocketConnector;
+package tapsi.samples.user;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

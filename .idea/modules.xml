@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GeoDoorVisu.iml" filepath="$PROJECT_DIR$/GeoDoorVisu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vaadintestlll-backend/vaadintestlll-backend.iml" filepath="$PROJECT_DIR$/vaadintestlll-backend/vaadintestlll-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vaadintestlll-production/vaadintestlll-production.iml" filepath="$PROJECT_DIR$/vaadintestlll-production/vaadintestlll-production.iml" />
       <module fileurl="file://$PROJECT_DIR$/vaadintestlll-ui/vaadintestlll-ui.iml" filepath="$PROJECT_DIR$/vaadintestlll-ui/vaadintestlll-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/vaadintestlll-widgetset/vaadintestlll-widgetset.iml" filepath="$PROJECT_DIR$/vaadintestlll-widgetset/vaadintestlll-widgetset.iml" />
     </modules>
