@@ -66,6 +66,10 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo;
 
+  .btn_layout {
+    margin-top: 16px;
+  }
+
   .crud-main-layout {
     padding: 0 0 0 0;
   }

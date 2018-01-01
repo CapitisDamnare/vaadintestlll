@@ -42,9 +42,12 @@ public class Status extends VerticalLayout implements View {
         pageLayout.setComponentAlignment(pageLabel,Alignment.MIDDLE_CENTER);
 
         HorizontalLayout btnLayout = new HorizontalLayout();
+        btnLayout.setStyleName("btn_layout");
         sendMessage = new Button("Send Message");
         sendMessage.addClickListener(e -> sendMsgBtnClick());
 
+        btnLayout.setMargin(false);
+        btnLayout.setSizeFull();
         btnLayout.addComponent(sendMessage);
         //btnLayout.setComponentAlignment(sendMessage, Alignment.MIDDLE_LEFT);
 
@@ -150,7 +153,7 @@ public class Status extends VerticalLayout implements View {
         setExpandRatio(btnLayout,0.05f);
         setExpandRatio(firstRow,0.2f);
         setExpandRatio(secondRow,0.2f);
-        setExpandRatio(log,0.35f);
+        setExpandRatio(log,0.3f);
         setExpandRatio(spacer,0.05f);
     }
 

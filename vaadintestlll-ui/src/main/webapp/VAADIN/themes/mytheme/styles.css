@@ -15045,6 +15045,10 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+.mytheme .btn_layout {
+	margin-top: 16px;
+}
+
 .mytheme .crud-main-layout {
 	padding: 0 0 0 0;
 }
