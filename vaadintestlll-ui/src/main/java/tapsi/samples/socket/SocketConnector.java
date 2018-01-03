@@ -1,7 +1,8 @@
 package tapsi.samples.socket;
 
 import javafx.util.Pair;
-import tapsi.samples.user.Client;
+import tapsi.samples.data.Client;
+import tapsi.samples.data.DataHandler;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -12,7 +13,7 @@ import java.util.ListIterator;
 
 public final class SocketConnector implements Serializable {
 
-    private static List<Client> users = new ArrayList<>();
+    //private static List<Client> users = new ArrayList<>();
 
     private static int serverPort;
     private static String serverIPAddress;
@@ -25,10 +26,6 @@ public final class SocketConnector implements Serializable {
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
-    }
-
-    public static List<Client> getUsers() {
-        return users;
     }
 
     public static boolean initConnection() {
@@ -65,7 +62,7 @@ public final class SocketConnector implements Serializable {
 
         try {
             while ((socketinputObject = (Pair<String,List<List<String>>>) objectInputStream.readObject()) != null) {
-                printAll(socketinputObject);
+                saveAll(socketinputObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,9 +78,8 @@ public final class SocketConnector implements Serializable {
         return "";
     }
 
-    public static void printAll(Pair<String, List<List<String>>> msg) {
-        //System.out.println(msg.getKey());
-        users = new ArrayList<>();
+    public static void saveAll(Pair<String, List<List<String>>> msg) {
+        List<Client> users = new ArrayList<>();
         List<List<String>> clients = msg.getValue();
         ListIterator<List<String>> iterator = clients.listIterator();
         while (iterator.hasNext()) {
@@ -91,56 +87,6 @@ public final class SocketConnector implements Serializable {
             Client user = new Client(client);
             users.add(user);
         }
-    }
-
-    public static Client getProductByID(int clientID) {
-        ListIterator<Client> iterator = users.listIterator();
-        while (iterator.hasNext()) {
-            Client client = iterator.next();
-            if (client.getId() == clientID)
-                return client;
-        }
-        System.out.println("Returned null!!!!");
-        return null;
-    }
-
-    public static void save(Client newClient) {
-        if (newClient.getId().equals(-1)) {
-            addUser(newClient);
-            return;
-        }
-
-        ListIterator<Client> iterator = users.listIterator();
-        while (iterator.hasNext()) {
-            Client client = iterator.next();
-            if (client.getId().equals(newClient.getId())) {
-                client.setId(newClient.getId());
-                client.setName(newClient.getName());
-                client.setPhoneID(newClient.getPhoneID());
-                client.setThreadID(newClient.getThreadID());
-                client.setAllowed(newClient.getAllowed());
-                client.setLastConnection(newClient.getLastConnection());
-                return;
-            }
-        }
-
-    }
-
-    public static void delete(Client newClient) {
-        int index = 0;
-        ListIterator<Client> iterator = users.listIterator();
-        while (iterator.hasNext()) {
-            Client client = iterator.next();
-            if (client.getId().equals(newClient.getId())) {
-                break;
-            }
-            else
-                index++;
-        }
-        users.remove(index);
-    }
-
-    public static void addUser(Client client) {
-        users.add(client);
+        DataHandler.setUsers(users);
     }
 }

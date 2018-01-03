@@ -4,6 +4,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.renderers.HtmlRenderer;
 import com.vaadin.ui.renderers.NumberRenderer;
+import tapsi.samples.data.Client;
 
 public class ClientGrid extends Grid<Client> {
 

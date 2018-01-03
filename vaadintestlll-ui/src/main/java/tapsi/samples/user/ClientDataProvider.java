@@ -2,6 +2,8 @@ package tapsi.samples.user;
 
 import com.vaadin.data.provider.AbstractDataProvider;
 import com.vaadin.data.provider.Query;
+import tapsi.samples.data.Client;
+import tapsi.samples.data.DataHandler;
 import tapsi.samples.socket.SocketConnector;
 
 import java.util.Locale;
@@ -23,7 +25,7 @@ public class ClientDataProvider
     public void save(Client client) {
         boolean newClient = client.getId() == -1;
 
-        SocketConnector.save(client);
+        DataHandler.save(client);
         if (newClient) {
             refreshAll();
             //refreshItem(client);
@@ -39,7 +41,7 @@ public class ClientDataProvider
      *            the client to be deleted
      */
     public void delete(Client client) {
-        SocketConnector.delete(client);
+        DataHandler.delete(client);
         //DataService.get().deleteProduct(client.getId());
         refreshAll();
     }
@@ -83,9 +85,9 @@ public class ClientDataProvider
     @Override
     public Stream<Client> fetch(Query<Client, String> query) {
         if (filterText.isEmpty()) {
-            return SocketConnector.getUsers().stream();
+            return DataHandler.getUsers().stream();
         }
-        return SocketConnector.getUsers().stream().filter(
+        return DataHandler.getUsers().stream().filter(
                 client -> passesFilter(client.getName(), filterText)
                         || passesFilter(client.getAllowed(), filterText));
     }

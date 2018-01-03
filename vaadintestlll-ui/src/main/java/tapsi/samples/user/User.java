@@ -7,6 +7,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.samples.ResetButtonForTextField;
+import tapsi.samples.data.Client;
 
 
 public class User extends CssLayout implements View {

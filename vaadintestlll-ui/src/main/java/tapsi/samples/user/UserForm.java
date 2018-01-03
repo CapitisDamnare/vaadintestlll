@@ -3,6 +3,7 @@ package tapsi.samples.user;
 import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.data.Binder;
 import com.vaadin.server.Page;
+import tapsi.samples.data.Client;
 
 public class UserForm extends UserFormDesign {
 

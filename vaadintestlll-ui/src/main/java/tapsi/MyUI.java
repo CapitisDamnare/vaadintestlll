@@ -2,21 +2,20 @@ package tapsi;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.vaadin.annotations.*;
 import tapsi.samples.MainScreen;
 import tapsi.samples.authentication.AccessControl;
 import tapsi.samples.authentication.BasicAccessControl;
 import tapsi.samples.authentication.LoginScreen;
 import tapsi.samples.authentication.LoginScreen.LoginListener;
 
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.annotations.Viewport;
-import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+import tapsi.samples.data.DataHandler;
+import tapsi.samples.logpage.LogPage;
 import tapsi.samples.socket.SocketThread;
 import tapsi.samples.status.Status;
 
@@ -31,13 +30,15 @@ import tapsi.samples.status.Status;
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
 @Widgetset("tapsi.MyAppWidgetset")
+@PreserveOnRefresh
 public class MyUI extends UI {
 
     private AccessControl accessControl = new BasicAccessControl();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        SocketThread socketServer= new SocketThread();
+        new SocketThread();
+        new DataHandler();
 
         Responsive.makeResponsive(this);
         setLocale(vaadinRequest.getLocale());
@@ -57,7 +58,7 @@ public class MyUI extends UI {
     protected void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(Status.VIEW_NAME);
+        getNavigator().navigateTo(LogPage.VIEW_NAME);
     }
 
     public static MyUI get() {

@@ -1,4 +1,6 @@
-package tapsi.samples.user;
+package tapsi.samples.data;
+
+import tapsi.samples.user.Allowance;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

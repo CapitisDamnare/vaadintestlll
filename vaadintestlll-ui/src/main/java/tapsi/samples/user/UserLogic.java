@@ -2,7 +2,8 @@ package tapsi.samples.user;
 
 import com.vaadin.server.Page;
 import tapsi.MyUI;
-import tapsi.samples.socket.SocketConnector;
+import tapsi.samples.data.Client;
+import tapsi.samples.data.DataHandler;
 
 import java.io.Serializable;
 
@@ -61,7 +62,7 @@ public class UserLogic implements Serializable {
 
     private Client findClient(int clientID) {
         //return DataService.get().getProductById(productId);
-        return SocketConnector.getProductByID(clientID);
+        return DataHandler.getProductByID(clientID);
     }
 
     public void saveProduct(Client client) {
