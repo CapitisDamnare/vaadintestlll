@@ -13,7 +13,7 @@ import java.util.ListIterator;
 
 public final class SocketConnector implements Serializable {
 
-    //private static List<Client> users = new ArrayList<>();
+    private static Boolean connectionStatus = false;
 
     private static int serverPort;
     private static String serverIPAddress;
@@ -26,6 +26,10 @@ public final class SocketConnector implements Serializable {
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
+    }
+
+    public static Boolean getConnectionStatus() {
+        return connectionStatus;
     }
 
     public static boolean initConnection() {
@@ -41,6 +45,7 @@ public final class SocketConnector implements Serializable {
     }
 
     public static String sendMessage(String msg, String serialNumber) {
+        connectionStatus = false;
         Pair<String,List<List<String>>> socketinputObject;
         List<String> client = new ArrayList<>();
         client.add("whatever");
@@ -63,6 +68,7 @@ public final class SocketConnector implements Serializable {
         try {
             while ((socketinputObject = (Pair<String,List<List<String>>>) objectInputStream.readObject()) != null) {
                 saveAll(socketinputObject);
+                connectionStatus = true;
             }
         } catch (Exception e) {
             e.printStackTrace();

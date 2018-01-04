@@ -3,6 +3,8 @@ package tapsi.samples.status;
 import com.vaadin.navigator.View;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
+import tapsi.samples.data.DataHandler;
+import tapsi.samples.socket.SocketConnector;
 import tapsi.samples.socket.SocketThread;
 
 public class Status extends VerticalLayout implements View {
@@ -28,8 +30,18 @@ public class Status extends VerticalLayout implements View {
     private TextArea log;
 
     public Status() {
-        setSizeFull();
+        SocketThread.sendMessage("server:GeoDoorVisu");
 
+        buildView();
+
+        panelLabel1.setValue(SocketConnector.getConnectionStatus().toString());
+        panelLabel2.setValue(DataHandler.lastConnected());
+        panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
+        panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
+    }
+
+    private void buildView() {
+        setSizeFull();
         HorizontalLayout pageLayout = new HorizontalLayout();
         pageLabel = new Label("Status");
         pageLabel.setStyleName("page_label");

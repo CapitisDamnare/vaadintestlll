@@ -16,6 +16,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.samples.data.DataHandler;
 import tapsi.samples.logpage.LogPage;
+import tapsi.samples.socket.SocketConnector;
 import tapsi.samples.socket.SocketThread;
 import tapsi.samples.status.Status;
 
@@ -39,6 +40,7 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         new SocketThread();
         new DataHandler();
+        setPollInterval(2000);
 
         Responsive.makeResponsive(this);
         setLocale(vaadinRequest.getLocale());
@@ -58,7 +60,15 @@ public class MyUI extends UI {
     protected void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(LogPage.VIEW_NAME);
+
+        while (DataHandler.getUsers().equals(0)) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        getNavigator().navigateTo(Status.VIEW_NAME);
     }
 
     public static MyUI get() {

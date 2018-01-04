@@ -1,9 +1,13 @@
 package tapsi.samples.data;
 
+import tapsi.samples.user.Allowance;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class DataHandler implements Serializable {
 
@@ -57,8 +61,7 @@ public class DataHandler implements Serializable {
             Client client = iterator.next();
             if (client.getId().equals(newClient.getId())) {
                 break;
-            }
-            else
+            } else
                 index++;
         }
         users.remove(index);
@@ -66,5 +69,40 @@ public class DataHandler implements Serializable {
 
     public static void addUser(Client client) {
         users.add(client);
+    }
+
+    public static int userCount() {
+        return users.size();
+    }
+
+    public static String lastConnected() {
+        ListIterator iterator = users.listIterator();
+        while (iterator.hasNext()) {
+            DateFormat dateFormat = new SimpleDateFormat(
+                    "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+            Client client = (Client) iterator.next();
+            try {
+                dateFormat.parse(client.getLastConnection());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            System.out.println(dateFormat.format(new Date()));
+
+        }
+        return "";
+    }
+
+    public static int userAllowed() {
+        int count = 0;
+        ListIterator iterator = users.listIterator();
+        while (iterator.hasNext()) {
+            DateFormat dateFormat = new SimpleDateFormat(
+                    "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+            Client client = (Client) iterator.next();
+            if (client.getAllowed().equals(Allowance.ALLOWED))
+                count++;
+
+        }
+        return count;
     }
 }
