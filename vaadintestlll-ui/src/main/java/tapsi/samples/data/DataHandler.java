@@ -72,24 +72,40 @@ public class DataHandler implements Serializable {
     }
 
     public static int userCount() {
-        return users.size();
+        return users.size()-1;
     }
 
     public static String lastConnected() {
         ListIterator iterator = users.listIterator();
+        Date tempDate = null;
+        Date lastDate = null;
+
         while (iterator.hasNext()) {
             DateFormat dateFormat = new SimpleDateFormat(
                     "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
             Client client = (Client) iterator.next();
             try {
-                dateFormat.parse(client.getLastConnection());
+                if (client.getLastConnection() != null) {
+                    tempDate = dateFormat.parse(client.getLastConnection());
+                    System.out.println("Date:" + tempDate.toString());
+
+                    if (!client.getName().equals("GeoDoorVisu"))
+                        if (lastDate == null)
+                            lastDate = tempDate;
+                        else {
+                            if (tempDate.after(lastDate))
+                                lastDate = tempDate;
+                        }
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            System.out.println(dateFormat.format(new Date()));
 
         }
-        return "";
+        if (lastDate == null)
+            return "";
+        else
+            return lastDate.toString();
     }
 
     public static int userAllowed() {
@@ -103,6 +119,6 @@ public class DataHandler implements Serializable {
                 count++;
 
         }
-        return count;
+        return count-1;
     }
 }

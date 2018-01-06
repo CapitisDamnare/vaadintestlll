@@ -1,11 +1,19 @@
 package tapsi.samples.status;
 
 import com.vaadin.navigator.View;
+import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextArea;
 import tapsi.samples.data.DataHandler;
 import tapsi.samples.socket.SocketConnector;
 import tapsi.samples.socket.SocketThread;
+
+import java.awt.*;
 
 public class Status extends VerticalLayout implements View {
 
@@ -33,14 +41,11 @@ public class Status extends VerticalLayout implements View {
         SocketThread.sendMessage("server:GeoDoorVisu");
 
         buildView();
-
-        panelLabel1.setValue(SocketConnector.getConnectionStatus().toString());
-        panelLabel2.setValue(DataHandler.lastConnected());
-        panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
-        panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
+        updateValues();
     }
 
     private void buildView() {
+        System.out.println("build is called!");
         setSizeFull();
         HorizontalLayout pageLayout = new HorizontalLayout();
         pageLabel = new Label("Status");
@@ -76,9 +81,16 @@ public class Status extends VerticalLayout implements View {
         Image image1 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel1 = new Label("This is my panel");
 
+        horizontalLayout.setStyleName("panel_layout");
         panelLabel1.setStyleName("panel_label");
+        image1.setStyleName("panel_image");
+        image1.setHeight("100%");
+        horizontalLayout.setSizeFull();
         horizontalLayout.setMargin(true);
         horizontalLayout.addComponents(image1, panelLabel1);
+        horizontalLayout.setExpandRatio(panelLabel1,1);
+        horizontalLayout.setComponentAlignment(image1,Alignment.MIDDLE_LEFT);
+        horizontalLayout.setComponentAlignment(panelLabel1,Alignment.MIDDLE_CENTER);
         panel1.setSizeFull();
         panel1.setContent(horizontalLayout);
 
@@ -88,9 +100,16 @@ public class Status extends VerticalLayout implements View {
         Image image2 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel2 = new Label("This is my panel");
 
+        horizontalLayout2.setStyleName("panel_layout");
         panelLabel2.setStyleName("panel_label");
-        horizontalLayout2.addComponents(image2, panelLabel2);
+        image2.setStyleName("panel_image");
+        image2.setHeight("100%");
+        horizontalLayout2.setSizeFull();
         horizontalLayout2.setMargin(true);
+        horizontalLayout2.addComponents(image2, panelLabel2);
+        horizontalLayout2.setExpandRatio(panelLabel2,1);
+        horizontalLayout2.setComponentAlignment(image2,Alignment.MIDDLE_LEFT);
+        horizontalLayout2.setComponentAlignment(panelLabel2,Alignment.MIDDLE_CENTER);
         panel2.setSizeFull();
         panel2.setContent(horizontalLayout2);
 
@@ -100,9 +119,16 @@ public class Status extends VerticalLayout implements View {
         Image image3 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel3 = new Label("This is my panel");
 
+        horizontalLayout3.setStyleName("panel_layout");
         panelLabel3.setStyleName("panel_label");
-        horizontalLayout3.addComponents(image3, panelLabel3);
+        image3.setStyleName("panel_image");
+        image3.setHeight("100%");
+        horizontalLayout3.setSizeFull();
         horizontalLayout3.setMargin(true);
+        horizontalLayout3.addComponents(image3, panelLabel3);
+        horizontalLayout3.setExpandRatio(panelLabel3,1);
+        horizontalLayout3.setComponentAlignment(image3,Alignment.MIDDLE_LEFT);
+        horizontalLayout3.setComponentAlignment(panelLabel3,Alignment.MIDDLE_CENTER);
         panel3.setSizeFull();
         panel3.setContent(horizontalLayout3);
 
@@ -116,9 +142,16 @@ public class Status extends VerticalLayout implements View {
         Image image4 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel4 = new Label("This is my panel");
 
+        horizontalLayout4.setStyleName("panel_layout");
         panelLabel4.setStyleName("panel_label");
-        horizontalLayout4.addComponents(image4, panelLabel4);
+        image4.setStyleName("panel_image");
+        image4.setHeight("100%");
+        horizontalLayout4.setSizeFull();
         horizontalLayout4.setMargin(true);
+        horizontalLayout4.addComponents(image4, panelLabel4);
+        horizontalLayout4.setExpandRatio(panelLabel4,1);
+        horizontalLayout4.setComponentAlignment(image4,Alignment.MIDDLE_LEFT);
+        horizontalLayout4.setComponentAlignment(panelLabel4,Alignment.MIDDLE_CENTER);
         panel4.setSizeFull();
         panel4.setContent(horizontalLayout4);
 
@@ -128,9 +161,16 @@ public class Status extends VerticalLayout implements View {
         Image image5 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel5 = new Label("This is my panel");
 
+        horizontalLayout5.setStyleName("panel_layout");
         panelLabel5.setStyleName("panel_label");
-        horizontalLayout5.addComponents(image5, panelLabel5);
+        image5.setStyleName("panel_image");
+        image5.setHeight("100%");
+        horizontalLayout5.setSizeFull();
         horizontalLayout5.setMargin(true);
+        horizontalLayout5.addComponents(image5, panelLabel5);
+        horizontalLayout5.setExpandRatio(panelLabel5,1);
+        horizontalLayout5.setComponentAlignment(image5,Alignment.MIDDLE_LEFT);
+        horizontalLayout5.setComponentAlignment(panelLabel5,Alignment.MIDDLE_CENTER);
         panel5.setSizeFull();
         panel5.setContent(horizontalLayout5);
 
@@ -140,9 +180,16 @@ public class Status extends VerticalLayout implements View {
         Image image6 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel6 = new Label("This is my panel");
 
+        horizontalLayout6.setStyleName("panel_layout");
         panelLabel6.setStyleName("panel_label");
-        horizontalLayout6.addComponents(image6, panelLabel6);
+        image6.setStyleName("panel_image");
+        image6.setHeight("100%");
+        horizontalLayout6.setSizeFull();
         horizontalLayout6.setMargin(true);
+        horizontalLayout6.addComponents(image6, panelLabel6);
+        horizontalLayout6.setExpandRatio(panelLabel6,1);
+        horizontalLayout6.setComponentAlignment(image6,Alignment.MIDDLE_LEFT);
+        horizontalLayout6.setComponentAlignment(panelLabel6,Alignment.MIDDLE_CENTER);
         panel6.setSizeFull();
         panel6.setContent(horizontalLayout6);
 
@@ -151,6 +198,7 @@ public class Status extends VerticalLayout implements View {
         // Log Text Area
         log = new TextArea("Last Messages");
         log.setValue("This are the servers last Messsages");
+        log.setStyleName("status_log");
         log.setSizeFull();
         log.setEnabled(false);
 
@@ -163,13 +211,26 @@ public class Status extends VerticalLayout implements View {
         setMargin(false);
         setExpandRatio(pageLayout,0.05f);
         setExpandRatio(btnLayout,0.05f);
-        setExpandRatio(firstRow,0.2f);
-        setExpandRatio(secondRow,0.2f);
-        setExpandRatio(log,0.3f);
+        setExpandRatio(firstRow,0.1f);
+        setExpandRatio(secondRow,0.1f);
+        setExpandRatio(log,0.5f);
         setExpandRatio(spacer,0.05f);
+    }
+
+    private void updateValues() {
+        panelLabel1.setValue(SocketConnector.getConnectionStatus());
+        if (panelLabel1.getValue().equals("Connected")) {
+            panelLabel1.setStyleName("panel_label_green");
+        }
+        else
+            panelLabel1.setStyleName("panel_label");
+        panelLabel2.setValue(DataHandler.lastConnected());
+        panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
+        panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
     }
 
     public void sendMsgBtnClick() {
         SocketThread.sendMessage("server:GeoDoorVisu");
+        updateValues();
     }
 }

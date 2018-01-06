@@ -28,8 +28,11 @@ public final class SocketConnector implements Serializable {
         this.serverIPAddress = serverIPAddress;
     }
 
-    public static Boolean getConnectionStatus() {
-        return connectionStatus;
+    public static String getConnectionStatus() {
+        if(connectionStatus)
+            return "Connected";
+        else
+            return "Disconnected";
     }
 
     public static boolean initConnection() {

@@ -75,7 +75,13 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   }
 
   .panel_label {
+    font-size: 150%;
     color: #00b0fe;
+  }
+
+  .panel_label_green{
+    font-size: 150%;
+    color: #17ff54;
   }
 
   .valo-menu {
@@ -89,7 +95,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   }
 
   .v-panel-caption {
-    color: #00b0fe;
+    //color: #00b0fe;
   }
 
   // Status Page Label
@@ -254,6 +260,23 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   // No top menu on the login view, login screen layout changes
   .v-ui[width-range~="0-800px"] {
 
+    .panel_label {
+      font-size: 100%;
+      color: #00b0fe;
+      margin-left: -25px;
+    }
+
+    .panel_label_green {
+      font-size: 100%;
+      color: #17ff54;
+      margin-left: -25px;
+    }
+
+    .panel_image {
+      visibility: hidden;
+      width: 0px;
+    }
+
     .page_label {
       margin-top: -0px;
     }
@@ -339,19 +362,34 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   }
 
   // hide the logo for a more compact header when the menu is narrow
-  .v-ui[width-range~="801px-1100px"] .valo-menu-part {
-    .v-slot-logo,
-    .v-slot-logo + .v-spacing {
-      display: none;
-    }
-  }
+  .v-ui[width-range~="801px-1100px"]  {
 
-  // Move logout button to the bottom of the menu on large screens
-  .v-ui[width-range~="801px-"] .valo-menu-part {
-    .user-menu {
-      position: fixed;
-      bottom: 0;
-      margin-bottom: 0;
+    .valo-menu-part {
+      .v-slot-logo,
+      .v-slot-logo + .v-spacing {
+        display: none;
+      }
+    }
+
+    // Move logout button to the bottom of the menu on large screens
+    .v-ui[width-range~="801px-"] .valo-menu-part {
+      .user-menu {
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    .panel_label {
+      font-size: 120%;
+      color: #00b0fe;
+      margin-left: -25px;
+    }
+
+    .panel_label_green {
+      font-size: 120%;
+      color: #17ff54;
+      margin-left: -25px;
     }
   }
 
@@ -402,6 +440,26 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   .v-ui[width-range~="0-500px"] {
     .valo-menu .v-menubar-user-menu .v-menubar-menuitem-caption {
       width: auto;
+    }
+
+    .v-panel-caption {
+      font-size: 60%;
+    }
+
+    .panel_label {
+      font-size: 80%;
+      color: #00b0fe;
+      margin-left: -25px;
+    }
+
+    .panel_label_green {
+      font-size: 80%;
+      color: #17ff54;
+      margin-left: -25px;
+    }
+
+    .status_log {
+      display: none;
     }
   }
 

@@ -12,6 +12,14 @@
     <name>vaadintestlll-ui</name>
     <packaging>war</packaging>
 
+    <distributionManagement>
+        <repository>
+            <id>local-m2-repo</id>
+            <url>file:///${user.home}/.m2/repository</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!-- Versions for these are configured in the parent POM -->
         <dependency>
@@ -83,6 +91,8 @@
                 <version>${jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <stopKey/>
+                    <stopPort/>
                 </configuration>
             </plugin>
             <plugin>

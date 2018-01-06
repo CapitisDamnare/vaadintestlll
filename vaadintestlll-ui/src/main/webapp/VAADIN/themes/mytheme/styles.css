@@ -15054,7 +15054,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .panel_label {
+	font-size: 150%;
 	color: #00b0fe;
+}
+
+.mytheme .panel_label_green {
+	font-size: 150%;
+	color: #17ff54;
 }
 
 .mytheme .valo-menu {
@@ -15064,10 +15070,6 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .page_label_layout {
 	background-image: -webkit-linear-gradient(top, #67a7eb 2%, #5491de 98%);
 	background-image: linear, to bottom, #67a7eb 2%, #5491de 98%;
-}
-
-.mytheme .v-panel-caption {
-	color: #00b0fe;
 }
 
 .mytheme .page_label {
@@ -15545,6 +15547,23 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 32px !important;
 }
 
+.mytheme .v-ui[width-range~="0-800px"] .panel_label {
+	font-size: 100%;
+	color: #00b0fe;
+	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="0-800px"] .panel_label_green {
+	font-size: 100%;
+	color: #17ff54;
+	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="0-800px"] .panel_image {
+	visibility: hidden;
+	width: 0px;
+}
+
 .mytheme .v-ui[width-range~="0-800px"] .page_label {
 	margin-top: 0px;
 }
@@ -15628,10 +15647,22 @@ div.v-layout.v-horizontal.v-widget {
 	display: none;
 }
 
-.mytheme .v-ui[width-range~="801px-"] .valo-menu-part .user-menu {
+.mytheme .v-ui[width-range~="801px-1100px"] .v-ui[width-range~="801px-"] .valo-menu-part .user-menu {
 	position: fixed;
 	bottom: 0;
 	margin-bottom: 0;
+}
+
+.mytheme .v-ui[width-range~="801px-1100px"] .panel_label {
+	font-size: 120%;
+	color: #00b0fe;
+	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="801px-1100px"] .panel_label_green {
+	font-size: 120%;
+	color: #17ff54;
+	margin-left: -25px;
 }
 
 .mytheme .v-ui[width-range~="0-550px"] .product-form-wrapper {
@@ -15674,6 +15705,26 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-ui[width-range~="0-500px"] .valo-menu .v-menubar-user-menu .v-menubar-menuitem-caption {
 	width: auto;
+}
+
+.mytheme .v-ui[width-range~="0-500px"] .v-panel-caption {
+	font-size: 60%;
+}
+
+.mytheme .v-ui[width-range~="0-500px"] .panel_label {
+	font-size: 80%;
+	color: #00b0fe;
+	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="0-500px"] .panel_label_green {
+	font-size: 80%;
+	color: #17ff54;
+	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="0-500px"] .status_log {
+	display: none;
 }
 
 .mytheme input[type=number]::-webkit-inner-spin-button, .mytheme input[type=number]::-webkit-outer-spin-button {
