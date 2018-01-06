@@ -362,9 +362,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   }
 
   // hide the logo for a more compact header when the menu is narrow
-  .v-ui[width-range~="801px-1100px"]  {
-
-    .valo-menu-part {
+  .v-ui[width-range~="801px-1100px"] .valo-menu-part {
       .v-slot-logo,
       .v-slot-logo + .v-spacing {
         display: none;
@@ -380,6 +378,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       }
     }
 
+  .v-ui[width-range~="801px-1100px"] {
     .panel_label {
       font-size: 120%;
       color: #00b0fe;
@@ -390,6 +389,11 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       font-size: 120%;
       color: #17ff54;
       margin-left: -25px;
+    }
+
+    .panel_image {
+      visibility: hidden;
+      width: 0px;
     }
   }
 
@@ -456,10 +460,6 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       font-size: 80%;
       color: #17ff54;
       margin-left: -25px;
-    }
-
-    .status_log {
-      display: none;
     }
   }
 

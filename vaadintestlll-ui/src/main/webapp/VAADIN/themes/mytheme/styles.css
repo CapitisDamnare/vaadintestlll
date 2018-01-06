@@ -15647,7 +15647,7 @@ div.v-layout.v-horizontal.v-widget {
 	display: none;
 }
 
-.mytheme .v-ui[width-range~="801px-1100px"] .v-ui[width-range~="801px-"] .valo-menu-part .user-menu {
+.mytheme .v-ui[width-range~="801px-"] .valo-menu-part .user-menu {
 	position: fixed;
 	bottom: 0;
 	margin-bottom: 0;
@@ -15663,6 +15663,11 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 120%;
 	color: #17ff54;
 	margin-left: -25px;
+}
+
+.mytheme .v-ui[width-range~="801px-1100px"] .panel_image {
+	visibility: hidden;
+	width: 0px;
 }
 
 .mytheme .v-ui[width-range~="0-550px"] .product-form-wrapper {
@@ -15721,10 +15726,6 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 80%;
 	color: #17ff54;
 	margin-left: -25px;
-}
-
-.mytheme .v-ui[width-range~="0-500px"] .status_log {
-	display: none;
 }
 
 .mytheme input[type=number]::-webkit-inner-spin-button, .mytheme input[type=number]::-webkit-outer-spin-button {

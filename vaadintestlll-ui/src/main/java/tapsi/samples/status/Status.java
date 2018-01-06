@@ -211,9 +211,9 @@ public class Status extends VerticalLayout implements View {
         setMargin(false);
         setExpandRatio(pageLayout,0.05f);
         setExpandRatio(btnLayout,0.05f);
-        setExpandRatio(firstRow,0.1f);
-        setExpandRatio(secondRow,0.1f);
-        setExpandRatio(log,0.5f);
+        setExpandRatio(firstRow,0.2f);
+        setExpandRatio(secondRow,0.2f);
+        setExpandRatio(log,0.45f);
         setExpandRatio(spacer,0.05f);
     }
 
