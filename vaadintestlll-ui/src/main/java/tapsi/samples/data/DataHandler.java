@@ -87,7 +87,7 @@ public class DataHandler implements Serializable {
             try {
                 if (client.getLastConnection() != null) {
                     tempDate = dateFormat.parse(client.getLastConnection());
-                    System.out.println("Date:" + tempDate.toString());
+                    //System.out.println("Date:" + tempDate.toString());
 
                     if (!client.getName().equals("GeoDoorVisu"))
                         if (lastDate == null)
@@ -98,7 +98,7 @@ public class DataHandler implements Serializable {
                         }
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         }

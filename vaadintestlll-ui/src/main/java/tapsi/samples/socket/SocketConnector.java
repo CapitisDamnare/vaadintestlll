@@ -49,7 +49,7 @@ public final class SocketConnector implements Serializable {
 
     public static String sendMessage(String msg, String serialNumber) {
         connectionStatus = false;
-        Pair<String,List<List<String>>> socketinputObject;
+        Pair<String,String> socketinputObject;
         List<String> client = new ArrayList<>();
         client.add("whatever");
         String tempMsg = msg + "-" + serialNumber;
@@ -69,33 +69,25 @@ public final class SocketConnector implements Serializable {
         }
 
         try {
-            while ((socketinputObject = (Pair<String,List<List<String>>>) objectInputStream.readObject()) != null) {
+            while ((socketinputObject = (Pair<String,String>) objectInputStream.readObject()) != null) {
                 saveAll(socketinputObject);
                 connectionStatus = true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         } finally {
             if (socket != null)
                 try {
                     socket.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
         }
         return "";
     }
 
-    public static void saveAll(Pair<String, List<List<String>>> msg) {
-        List<Client> users = new ArrayList<>();
-        List<List<String>> clients = msg.getValue();
-        ListIterator<List<String>> iterator = clients.listIterator();
-        while (iterator.hasNext()) {
-            List<String> client = iterator.next();
-            Client user = new Client(client);
-            users.add(user);
-        }
-        DataHandler.setUsers(users);
+    public static void saveAll(Pair<String, String> msg) {
+        DataHandler.setUsers(XMLReader.readConfig(msg.getValue()));
     }
 }

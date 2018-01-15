@@ -23,10 +23,10 @@ public class SocketThread {
                     if (answer != null) {
                         System.out.println("Message: " + answer);
                     } else {
-                        System.out.println("Socket Timeout");
+                        //System.out.println("Socket Timeout");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }).start();
