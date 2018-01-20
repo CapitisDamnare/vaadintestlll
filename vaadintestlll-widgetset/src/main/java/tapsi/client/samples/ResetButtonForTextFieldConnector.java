@@ -14,7 +14,7 @@ import com.vaadin.client.extensions.AbstractExtensionConnector;
 import com.vaadin.client.ui.VTextField;
 import com.vaadin.client.ui.textfield.AbstractTextFieldConnector;
 import com.vaadin.shared.ui.Connect;
-import tapsi.samples.ResetButtonForTextField;
+import tapsi.com.ResetButtonForTextField;
 
 /**
  * Client side implementation of {@link ResetButtonForTextField}.
@@ -71,7 +71,7 @@ public class ResetButtonForTextFieldConnector extends
     /*-{
         var self = this;
         el.onclick = $entry(function () {
-            self.@tapsi.client.samples.ResetButtonForTextFieldConnector::clearTextField()();
+            self.@tapsi.client.com.ResetButtonForTextFieldConnector::clearTextField()();
         });
     }-*/;
 

@@ -3,22 +3,22 @@ package tapsi;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.*;
-import tapsi.samples.MainScreen;
-import tapsi.samples.authentication.AccessControl;
-import tapsi.samples.authentication.BasicAccessControl;
-import tapsi.samples.authentication.LoginScreen;
-import tapsi.samples.authentication.LoginScreen.LoginListener;
+import tapsi.com.MainScreen;
+import tapsi.com.authentication.AccessControl;
+import tapsi.com.authentication.BasicAccessControl;
+import tapsi.com.authentication.LoginScreen;
+import tapsi.com.authentication.LoginScreen.LoginListener;
 
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
-import tapsi.samples.data.DataHandler;
-import tapsi.samples.logpage.LogPage;
-import tapsi.samples.socket.SocketConnector;
-import tapsi.samples.socket.SocketThread;
-import tapsi.samples.status.Status;
+import tapsi.com.data.DataHandler;
+import tapsi.com.logpage.LogPage;
+import tapsi.com.socket.SocketConnector;
+import tapsi.com.socket.SocketThread;
+import tapsi.com.status.Status;
 
 /**
  * Main UI class of the application that shows either the login screen or the
