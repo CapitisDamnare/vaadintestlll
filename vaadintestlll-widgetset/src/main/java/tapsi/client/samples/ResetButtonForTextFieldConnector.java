@@ -14,22 +14,15 @@ import com.vaadin.client.extensions.AbstractExtensionConnector;
 import com.vaadin.client.ui.VTextField;
 import com.vaadin.client.ui.textfield.AbstractTextFieldConnector;
 import com.vaadin.shared.ui.Connect;
-import tapsi.com.ResetButtonForTextField;
 
-/**
- * Client side implementation of {@link ResetButtonForTextField}.
- * 
- * @see <a href="https://vaadin.com/blog/-/blogs/2656782">Extending components
- *      in Vaadin 7</a>
- */
-@Connect(ResetButtonForTextField.class)
+
 public class ResetButtonForTextFieldConnector extends
         AbstractExtensionConnector implements KeyUpHandler, AttachEvent.Handler {
 
-    public static final String CLASSNAME = "resetbuttonfortextfield";
+   //public static final String CLASSNAME = "resetbuttonfortextfield";
     private AbstractTextFieldConnector textFieldConnector;
-    private VTextField textField;
-    private Element resetButtonElement;
+    //private VTextField textField;
+    //private Element resetButtonElement;
 
     @Override
     protected void extend(ServerConnector serverConnector) {
@@ -48,30 +41,30 @@ public class ResetButtonForTextFieldConnector extends
                 });
 
         textFieldConnector = (AbstractTextFieldConnector) serverConnector;
-        textField = (VTextField) textFieldConnector.getWidget();
-        textField.addStyleName(CLASSNAME + "-textfield");
-
-        resetButtonElement = DOM.createDiv();
-        resetButtonElement.addClassName(CLASSNAME + "-resetbutton");
-
-        textField.addAttachHandler(this);
-        textField.addKeyUpHandler(this);
+//        textField = (VTextField) textFieldConnector.getWidget();
+//        textField.addStyleName(CLASSNAME + "-textfield");
+//
+//        resetButtonElement = DOM.createDiv();
+//        resetButtonElement.addClassName(CLASSNAME + "-resetbutton");
+//
+//        textField.addAttachHandler(this);
+//        textField.addKeyUpHandler(this);
     }
 
     private void updateResetButtonVisibility() {
-        if (textField.getValue().isEmpty()
-                || textField.getStyleName().contains("v-textfield-prompt")) {
-            resetButtonElement.getStyle().setDisplay(Style.Display.NONE);
-        } else {
-            resetButtonElement.getStyle().clearDisplay();
-        }
+//        if (textField.getValue().isEmpty()
+//                || textField.getStyleName().contains("v-textfield-prompt")) {
+//            resetButtonElement.getStyle().setDisplay(Style.Display.NONE);
+//        } else {
+//            resetButtonElement.getStyle().clearDisplay();
+//        }
     }
 
     public native void addResetButtonClickListener(Element el)
     /*-{
         var self = this;
         el.onclick = $entry(function () {
-            self.@tapsi.client.com.ResetButtonForTextFieldConnector::clearTextField()();
+            //self.@tapsi.client.com.ResetButtonForTextFieldConnector::clearTextField()();
         });
     }-*/;
 
@@ -87,24 +80,24 @@ public class ResetButtonForTextFieldConnector extends
 
     @Override
     public void onAttachOrDetach(AttachEvent attachEvent) {
-        if (attachEvent.isAttached()) {
-            textField.getElement().getParentElement()
-                    .insertAfter(resetButtonElement, textField.getElement());
-            updateResetButtonVisibility();
-            addResetButtonClickListener(resetButtonElement);
-        } else {
-            Element parentElement = resetButtonElement.getParentElement();
-            if (parentElement != null) {
-                parentElement.removeChild(resetButtonElement);
-            }
-            removeResetButtonClickListener(resetButtonElement);
-        }
+//        if (attachEvent.isAttached()) {
+//            textField.getElement().getParentElement()
+//                    .insertAfter(resetButtonElement, textField.getElement());
+//            updateResetButtonVisibility();
+//            addResetButtonClickListener(resetButtonElement);
+//        } else {
+//            Element parentElement = resetButtonElement.getParentElement();
+//            if (parentElement != null) {
+//                parentElement.removeChild(resetButtonElement);
+//            }
+//            removeResetButtonClickListener(resetButtonElement);
+//        }
     }
 
     private void clearTextField() {
-        textField.setValue("");
-        textFieldConnector.flush();
-        updateResetButtonVisibility();
-        textField.getElement().focus();
+//        textField.setValue("");
+//        textFieldConnector.flush();
+//        updateResetButtonVisibility();
+//        textField.getElement().focus();
     }
 }

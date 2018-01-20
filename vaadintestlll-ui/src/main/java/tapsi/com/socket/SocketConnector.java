@@ -68,6 +68,8 @@ public final class SocketConnector implements Serializable {
 
         try {
             while ((socketinputObject = (Pair<String,String>) objectInputStream.readObject()) != null) {
+                System.out.println("Key: " + socketinputObject.getKey());
+                System.out.println("Value: " + socketinputObject.getValue());
                 saveAll(socketinputObject);
                 connectionStatus = true;
             }
@@ -124,6 +126,10 @@ public final class SocketConnector implements Serializable {
     }
 
     public static void saveAll(Pair<String, String> msg) {
-        DataHandler.setUsers(XMLReader.readConfig(msg.getValue()));
+        List<Client> users = new ArrayList<>();
+        users = XMLReader.readConfig(msg.getValue());
+        System.out.println("Size: " + users.size());
+        System.out.println("Got Here");
+        DataHandler.setUsers(users);
     }
 }

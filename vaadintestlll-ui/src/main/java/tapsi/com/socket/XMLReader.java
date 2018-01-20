@@ -108,7 +108,8 @@ public class XMLReader {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(LASTCONNECTION)) {
                         event = eventReader.nextEvent();
-                        client.setLastConnection(event.asCharacters().getData());
+                        if (event.isCharacters())
+                            client.setLastConnection(event.asCharacters().getData());
                         continue;
                     }
                 }

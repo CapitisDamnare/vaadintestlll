@@ -227,6 +227,7 @@ public class Status extends VerticalLayout implements View {
         panelLabel2.setValue(DataHandler.lastConnected());
         panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
         panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
+        System.out.println(DataHandler.getUsers().size());
     }
 
     public void sendMsgBtnClick() {

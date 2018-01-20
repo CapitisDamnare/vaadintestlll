@@ -41,6 +41,7 @@ public class UserForm extends UserFormDesign {
                     && binder.writeBeanIfValid(currentUser)) {
                 viewLogic.saveProduct(currentUser);
             }
+            SocketThread.sendUpdate("update:GeoDoorVisu");
         });
 
         discard.addClickListener(
@@ -62,8 +63,6 @@ public class UserForm extends UserFormDesign {
         }
         currentUser = client;
         binder.readBean(client);
-
-        SocketThread.sendUpdate("update:GeoDoorVisu");
 
         // Scroll to the top
         // As this is not a Panel, using JavaScript

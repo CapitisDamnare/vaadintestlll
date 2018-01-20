@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="gwt" url="file://$PROJECT_DIR$/vaadintestlll-ui" />
+    <file type="gwt" url="file://$PROJECT_DIR$/vaadintestlll-widgetset" />
+    <file type="web" url="file://$PROJECT_DIR$/vaadintestlll-ui" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
