@@ -76,7 +76,7 @@ public class Status extends VerticalLayout implements View {
 
         // First Row Items
         // 1. Panel
-        panel1 = new Panel("Connected to Server");
+        panel1 = new Panel("Connection");
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         Image image1 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel1 = new Label("This is my panel");
