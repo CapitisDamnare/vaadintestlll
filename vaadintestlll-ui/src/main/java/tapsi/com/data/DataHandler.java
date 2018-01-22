@@ -28,7 +28,6 @@ public class DataHandler implements Serializable {
             if (client.getId() == clientID)
                 return client;
         }
-        System.out.println("Returned null!!!!");
         return null;
     }
 

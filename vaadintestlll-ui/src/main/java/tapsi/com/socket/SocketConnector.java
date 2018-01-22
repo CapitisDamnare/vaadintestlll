@@ -1,15 +1,16 @@
 package tapsi.com.socket;
 
-import javafx.util.Pair;
 import tapsi.com.data.Client;
 import tapsi.com.data.DataHandler;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public final class SocketConnector implements Serializable {
 
@@ -29,7 +30,7 @@ public final class SocketConnector implements Serializable {
     }
 
     public static String getConnectionStatus() {
-        if(connectionStatus)
+        if (connectionStatus)
             return "Connected";
         else
             return "Disconnected";
@@ -49,9 +50,9 @@ public final class SocketConnector implements Serializable {
 
     public static String sendMessage(String msg, String serialNumber) {
         connectionStatus = false;
-        Pair<String,String> socketinputObject;
+        String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;
-        Pair<String,String> socketoutputObject = new Pair<> (tempMsg, "");
+        String socketoutputObject = new String(tempMsg + "!");
 
         if (!initConnection())
             return null;
@@ -67,10 +68,13 @@ public final class SocketConnector implements Serializable {
         }
 
         try {
-            while ((socketinputObject = (Pair<String,String>) objectInputStream.readObject()) != null) {
-                System.out.println("Key: " + socketinputObject.getKey());
-                System.out.println("Value: " + socketinputObject.getValue());
-                saveAll(socketinputObject);
+            while ((socketinputObject = (String) objectInputStream.readObject()) != null) {
+                String messageTemp = socketinputObject;
+                String command = messageTemp.substring(0, messageTemp.indexOf("!"));
+                messageTemp = messageTemp.replace(command + "!", "");
+
+                String value = messageTemp;
+                saveAll(value);
                 connectionStatus = true;
             }
         } catch (Exception e) {
@@ -87,11 +91,11 @@ public final class SocketConnector implements Serializable {
         return "";
     }
 
-    public String sendUpdate (String msg, String serialNumber) {
+    public String sendUpdate(String msg, String serialNumber) {
         connectionStatus = false;
-        Pair<String,String> socketinputObject;
+        String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;
-        Pair<String,String> socketoutputObject = new Pair<> (tempMsg, XMLWriter.getXml());
+        String socketoutputObject = new String(tempMsg + "!" + XMLWriter.getXml());
 
         if (!initConnection())
             return null;
@@ -107,9 +111,12 @@ public final class SocketConnector implements Serializable {
         }
 
         try {
-            while ((socketinputObject = (Pair<String,String>) objectInputStream.readObject()) != null) {
-                if (socketinputObject.getKey().equals("true"))
-                connectionStatus = true;
+            while ((socketinputObject = (String) objectInputStream.readObject()) != null) {
+                String messageTemp = socketinputObject;
+                String command = messageTemp.substring(0, messageTemp.indexOf("!"));
+
+                if (command.equals("true"))
+                    connectionStatus = true;
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -125,11 +132,9 @@ public final class SocketConnector implements Serializable {
         return "";
     }
 
-    public static void saveAll(Pair<String, String> msg) {
+    public static void saveAll(String value) {
         List<Client> users = new ArrayList<>();
-        users = XMLReader.readConfig(msg.getValue());
-        System.out.println("Size: " + users.size());
-        System.out.println("Got Here");
+        users = XMLReader.readConfig(value);
         DataHandler.setUsers(users);
     }
 }

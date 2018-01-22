@@ -4,13 +4,13 @@ public class SocketThread {
 
     // Socket Connection values
     private static SocketConnector sConnector;
-    private static int serverPort = 9999;
-    private static String serverIPAddress = "127.0.0.1";
+    private static int serverPort = 5678;
+    private static String serverIPAddress = "192.168.1.114";
     private static final String serverID = "13579";
     private static Boolean registered = false;
 
     public SocketThread() {
-        //register("visuRegister:GeoDoorVisu");
+        register("visuRegister:GeoDoorVisu");
     }
 
     public static void sendMessage(String message) {

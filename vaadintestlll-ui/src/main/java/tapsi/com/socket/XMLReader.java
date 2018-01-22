@@ -57,7 +57,6 @@ public class XMLReader {
                             Attribute attribute = attributes.next();
                             if (attribute.getName().toString().equals(ID)) {
                                 client.setId(Integer.valueOf(attribute.getValue()));
-                                System.out.println(attribute.getValue());
                             }
 
                         }
