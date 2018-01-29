@@ -70,11 +70,20 @@ public final class SocketConnector implements Serializable {
         try {
             while ((socketinputObject = (String) objectInputStream.readObject()) != null) {
                 String messageTemp = socketinputObject;
+                System.out.println("orig:" + messageTemp);
                 String command = messageTemp.substring(0, messageTemp.indexOf("!"));
                 messageTemp = messageTemp.replace(command + "!", "");
 
                 String value = messageTemp;
-                saveAll(value);
+
+                switch (command) {
+                    case "answer:clients":
+                        saveAll(value);
+                        break;
+                    case "answer:log":
+                        System.out.println("log: " + value);
+                        break;
+                }
                 connectionStatus = true;
             }
         } catch (Exception e) {

@@ -38,7 +38,7 @@ public class Status extends VerticalLayout implements View {
     private TextArea log;
 
     public Status() {
-        SocketThread.sendMessage("server:GeoDoorVisu");
+        SocketThread.sendMessage("server:clients");
 
         buildView();
         updateValues();
@@ -229,7 +229,8 @@ public class Status extends VerticalLayout implements View {
     }
 
     public void sendMsgBtnClick() {
-        SocketThread.sendMessage("server:GeoDoorVisu");
+        //SocketThread.sendMessage("server:clients");
+        SocketThread.sendMessage("server:log");
         updateValues();
     }
 }
