@@ -12,7 +12,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public final class SocketConnector implements Serializable {
+
+    private static SocketConnector connector;
 
     private static Boolean connectionStatus = false;
 
@@ -24,9 +27,24 @@ public final class SocketConnector implements Serializable {
     private static ObjectInputStream objectInputStream = null;
     private static ObjectOutputStream objectOutputStream = null;
 
+    private static SocketConnector.SocketListener listener;
+
+    public interface SocketListener {
+        void onLogUpdate(String string);
+    }
+
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
+        this.connector = this;
+    }
+
+    public void setCustomListener(SocketListener listener) {
+        this.listener = listener;
+    }
+
+    public static SocketConnector getInstance() {
+        return connector;
     }
 
     public static String getConnectionStatus() {
@@ -50,6 +68,7 @@ public final class SocketConnector implements Serializable {
 
     public static String sendMessage(String msg, String serialNumber) {
         connectionStatus = false;
+        String answer = "";
         String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;
         String socketoutputObject = new String(tempMsg + "!");
@@ -70,25 +89,31 @@ public final class SocketConnector implements Serializable {
         try {
             while ((socketinputObject = (String) objectInputStream.readObject()) != null) {
                 String messageTemp = socketinputObject;
-                System.out.println("orig:" + messageTemp);
                 String command = messageTemp.substring(0, messageTemp.indexOf("!"));
                 messageTemp = messageTemp.replace(command + "!", "");
 
                 String value = messageTemp;
+                command = command.replace("answer:", "");
 
                 switch (command) {
-                    case "answer:clients":
+                    case "clients":
                         saveAll(value);
+
                         break;
-                    case "answer:log":
-                        System.out.println("log: " + value);
+                    case "log":
+                        //TODO: Show in LOG Page
+                        listener.onLogUpdate(value);
+                        break;
+                    case "allowed":
+                        //TODO: Show the allowed message
                         break;
                 }
                 connectionStatus = true;
+                answer = command;
             }
         } catch (Exception e) {
             //e.printStackTrace();
-            return null;
+            return answer;
         } finally {
             if (socket != null)
                 try {
@@ -97,7 +122,7 @@ public final class SocketConnector implements Serializable {
                     //e.printStackTrace();
                 }
         }
-        return "";
+        return answer;
     }
 
     public String sendUpdate(String msg, String serialNumber) {

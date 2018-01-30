@@ -10,7 +10,7 @@ public class SocketThread {
     private static Boolean registered = false;
 
     public SocketThread() {
-        register("visuRegister:GeoDoorVisu");
+        //register("visuRegister:GeoDoorVisu");
     }
 
     public static void sendMessage(String message) {
@@ -18,7 +18,6 @@ public class SocketThread {
             try {
                 sConnector = new SocketConnector(serverPort, serverIPAddress);
                 String answer = sConnector.sendMessage(message, serverID);
-                System.out.println("sendMessage: " + answer);
                 if (answer != null) {
                     System.out.println("Message: " + answer);
                 } else {
@@ -52,7 +51,6 @@ public class SocketThread {
             try {
                 sConnector = new SocketConnector(serverPort, serverIPAddress);
                 String answer = sConnector.sendMessage(message, serverID);
-                System.out.println("register: " + answer);
                 if (answer != null) {
                     if (answer.equals("allowed")) {
                         registered = true;

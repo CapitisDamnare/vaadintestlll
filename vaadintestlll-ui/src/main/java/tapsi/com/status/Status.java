@@ -20,6 +20,8 @@ public class Status extends VerticalLayout implements View {
     public static final String VIEW_NAME = "Status";
     private Label pageLabel;
     private Button sendMessage;
+    private Button sendRegister;
+    private Button sendLog;
 
     private Panel panel1;
     private Panel panel2;
@@ -38,7 +40,7 @@ public class Status extends VerticalLayout implements View {
     private TextArea log;
 
     public Status() {
-        SocketThread.sendMessage("server:clients");
+        //SocketThread.sendMessage("server:clients");
 
         buildView();
         updateValues();
@@ -62,9 +64,15 @@ public class Status extends VerticalLayout implements View {
         sendMessage = new Button("Send Message");
         sendMessage.addClickListener(e -> sendMsgBtnClick());
 
+        sendRegister = new Button("Send Register");
+        sendRegister.addClickListener(e -> sendRegisterBtnClick());
+
+        sendLog = new Button("Send Log");
+        sendLog.addClickListener(e -> sendLogBtnClick());
+
         btnLayout.setMargin(false);
         btnLayout.setSizeFull();
-        btnLayout.addComponent(sendMessage);
+        btnLayout.addComponents(sendMessage, sendRegister, sendLog);
         //btnLayout.setComponentAlignment(sendMessage, Alignment.MIDDLE_LEFT);
 
         HorizontalLayout firstRow = new HorizontalLayout();
@@ -229,8 +237,17 @@ public class Status extends VerticalLayout implements View {
     }
 
     public void sendMsgBtnClick() {
-        //SocketThread.sendMessage("server:clients");
-        SocketThread.sendMessage("server:log");
+        SocketThread.sendMessage("server:clients:GeoDoorVisu");
         updateValues();
     }
+
+    public void sendRegisterBtnClick() {
+        SocketThread.register("visuRegister:GeoDoorVisu");
+    }
+
+    public void sendLogBtnClick() {
+        SocketThread.sendMessage("server:log:GeoDoorVisu");
+    }
+
+
 }
