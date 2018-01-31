@@ -3,6 +3,9 @@ package tapsi;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.*;
+import com.vaadin.navigator.ViewBeforeLeaveEvent;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.navigator.ViewLeaveAction;
 import tapsi.com.MainScreen;
 import tapsi.com.authentication.AccessControl;
 import tapsi.com.authentication.BasicAccessControl;
@@ -15,8 +18,6 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.com.data.DataHandler;
-import tapsi.com.logpage.LogPage;
-import tapsi.com.socket.SocketConnector;
 import tapsi.com.socket.SocketThread;
 import tapsi.com.status.Status;
 
@@ -35,6 +36,12 @@ import tapsi.com.status.Status;
 public class MyUI extends UI {
 
     private AccessControl accessControl = new BasicAccessControl();
+
+    @Override
+    protected void refresh(VaadinRequest request) {
+        getNavigator().getCurrentView().enter(null);
+        super.refresh(request);
+    }
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -60,14 +67,6 @@ public class MyUI extends UI {
     protected void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
-
-        while (DataHandler.getUsers().equals(0)) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         getNavigator().navigateTo(Status.VIEW_NAME);
     }
 

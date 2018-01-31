@@ -1,6 +1,7 @@
 package tapsi.com.status;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
@@ -10,12 +11,13 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import tapsi.com.data.DataHandler;
+import tapsi.com.socket.ObserverHandler;
 import tapsi.com.socket.SocketConnector;
 import tapsi.com.socket.SocketThread;
 
 import java.awt.*;
 
-public class Status extends VerticalLayout implements View, SocketConnector.SocketListener {
+public class Status extends VerticalLayout implements View, ObserverHandler.SocketListener {
 
     public static final String VIEW_NAME = "Status";
     private Label pageLabel;
@@ -40,15 +42,42 @@ public class Status extends VerticalLayout implements View, SocketConnector.Sock
     private TextArea log;
 
     public Status() {
-        //SocketThread.sendMessage("server:clients");
-        SocketConnector.setCustomListener(this);
+        ObserverHandler.addCustomListener(this);
         buildView();
-        updateValues();
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        SocketThread.sendMessage("server:clients:GeoDoorVisu");
+        SocketThread.sendMessage("server:log:GeoDoorVisu");
     }
 
     @Override
     public void onLogUpdate(String string) {
-        System.out.println("onLogUpdate: " + string);
+        log.clear();
+        log.setValue(string);
+    }
+
+    @Override
+    public void onClientUpdate() {
+        updateValues();
+    }
+
+    @Override
+    public void onAllowed() {
+
+    }
+
+    @Override
+    public void onConnected() {
+        panelLabel1.setValue("Connected");
+        panelLabel1.setStyleName("panel_label_green");
+    }
+
+    @Override
+    public void onDisconnected() {
+        panelLabel1.setValue("Connected");
+        panelLabel1.setStyleName("panel_label");
     }
 
     private void buildView() {
@@ -230,11 +259,6 @@ public class Status extends VerticalLayout implements View, SocketConnector.Sock
     }
 
     private void updateValues() {
-        panelLabel1.setValue(SocketConnector.getConnectionStatus());
-        if (panelLabel1.getValue().equals("Connected")) {
-            panelLabel1.setStyleName("panel_label_green");
-        } else
-            panelLabel1.setStyleName("panel_label");
         panelLabel2.setValue(DataHandler.lastConnected());
         panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
         panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
@@ -242,7 +266,6 @@ public class Status extends VerticalLayout implements View, SocketConnector.Sock
 
     public void sendMsgBtnClick() {
         SocketThread.sendMessage("server:clients:GeoDoorVisu");
-        updateValues();
     }
 
     public void sendRegisterBtnClick() {

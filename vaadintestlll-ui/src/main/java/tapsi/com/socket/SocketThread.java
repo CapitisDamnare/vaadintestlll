@@ -2,65 +2,42 @@ package tapsi.com.socket;
 
 public class SocketThread {
 
-    // Socket Connection values
+    // TODO: Address changeable in the frontend?
     private static SocketConnector sConnector;
     private static int serverPort = 5678;
     private static String serverIPAddress = "127.0.0.1";
     private static final String serverID = "13579";
-    private static Boolean registered = false;
 
     public SocketThread() {
-        //register("visuRegister:GeoDoorVisu");
+        ObserverHandler observerHandler = new ObserverHandler();
     }
 
     public static void sendMessage(String message) {
         new Thread(() -> {
-            try {
-                sConnector = new SocketConnector(serverPort, serverIPAddress);
-                String answer = sConnector.sendMessage(message, serverID);
-                if (answer != null) {
-                    System.out.println("Message: " + answer);
-                } else {
-                    //System.out.println("Socket Timeout");
-                }
-            } catch (Exception e) {
-                //e.printStackTrace();
+            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            String answer = sConnector.sendMessage(message, serverID);
+            if (answer.equals("")) {
+                System.out.println("sendMessage Timeout");
             }
         }).start();
     }
 
     public static void sendUpdate(String message) {
         new Thread(() -> {
-            try {
-                sConnector = new SocketConnector(serverPort, serverIPAddress);
-                String answer = sConnector.sendUpdate(message, serverID);
-                System.out.println("sendUpdate: " + answer);
-                if (answer != null) {
-                    System.out.println("Message: " + answer);
-                } else {
-                    //System.out.println("Socket Timeout");
-                }
-            } catch (Exception e) {
-                //e.printStackTrace();
+            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            String answer = sConnector.sendUpdate(message, serverID);
+            if (answer.equals("")) {
+                System.out.println("sendUpdate Socket Timeout");
             }
         }).start();
     }
 
     public static void register(String message) {
         new Thread(() -> {
-            try {
-                sConnector = new SocketConnector(serverPort, serverIPAddress);
-                String answer = sConnector.sendMessage(message, serverID);
-                if (answer != null) {
-                    if (answer.equals("allowed")) {
-                        registered = true;
-                    }
-                    System.out.println("Register: " + answer);
-                } else {
-                    System.out.println("Register Socket Timeout");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            String answer = sConnector.sendMessage(message, serverID);
+            if (answer.equals("")) {
+                System.out.println("Register Socket Timeout");
             }
         }).start();
     }

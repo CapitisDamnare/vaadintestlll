@@ -14,48 +14,22 @@ import java.util.List;
 import java.util.ListIterator;
 
 
-public final class SocketConnector implements Serializable {
+public class SocketConnector implements Serializable {
 
+    private int serverPort;
+    private String serverIPAddress;
 
-    private static Boolean connectionStatus = false;
+    private Socket socket = null;
 
-    private static int serverPort;
-    private static String serverIPAddress;
-
-    private static Socket socket = null;
-
-    private static ObjectInputStream objectInputStream = null;
-    private static ObjectOutputStream objectOutputStream = null;
-
-    //private static SocketConnector.SocketListener listener;
-    private static List<SocketConnector.SocketListener> listeners = new ArrayList<>();
-
-    public interface SocketListener {
-        void onLogUpdate(String string);
-    }
-
-    private static void onLogUpdate(String string) {
-        for (SocketConnector.SocketListener socketListener : listeners)
-            socketListener.onLogUpdate(string);
-    }
+    private ObjectInputStream objectInputStream = null;
+    private ObjectOutputStream objectOutputStream = null;
 
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
     }
 
-    public static void setCustomListener(SocketListener listener) {
-        listeners.add(listener);
-    }
-
-    public static String getConnectionStatus() {
-        if (connectionStatus)
-            return "Connected";
-        else
-            return "Disconnected";
-    }
-
-    public static boolean initConnection() {
+    public boolean initConnection() {
         try {
             InetAddress serverAddr = InetAddress.getByName(serverIPAddress);
             socket = new Socket(serverAddr, serverPort);
@@ -67,8 +41,8 @@ public final class SocketConnector implements Serializable {
         return true;
     }
 
-    public static String sendMessage(String msg, String serialNumber) {
-        connectionStatus = false;
+    public String sendMessage(String msg, String serialNumber) {
+        ObserverHandler.onDisconnected();
         String answer = "";
         String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;
@@ -99,18 +73,16 @@ public final class SocketConnector implements Serializable {
                 switch (command) {
                     case "clients":
                         saveAll(value);
-
+                        ObserverHandler.onClientUpdate();
                         break;
                     case "log":
-                        //TODO: Show in LOG Page
-                        System.out.println("got here!");
-                        onLogUpdate(value);
+                        ObserverHandler.onLogUpdate(value);
                         break;
                     case "allowed":
-                        //TODO: Show the allowed message
+                        ObserverHandler.onAllowed();
                         break;
                 }
-                connectionStatus = true;
+                ObserverHandler.onConnected();
                 answer = command;
             }
         } catch (Exception e) {
@@ -121,6 +93,7 @@ public final class SocketConnector implements Serializable {
                 try {
                     socket.close();
                 } catch (IOException e) {
+                    ObserverHandler.onDisconnected();
                     //e.printStackTrace();
                 }
         }
@@ -128,7 +101,7 @@ public final class SocketConnector implements Serializable {
     }
 
     public String sendUpdate(String msg, String serialNumber) {
-        connectionStatus = false;
+        ObserverHandler.onDisconnected();
         String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;
         String socketoutputObject = new String(tempMsg + "!" + XMLWriter.getXml());
@@ -151,8 +124,7 @@ public final class SocketConnector implements Serializable {
                 String messageTemp = socketinputObject;
                 String command = messageTemp.substring(0, messageTemp.indexOf("!"));
 
-                if (command.equals("true"))
-                    connectionStatus = true;
+                ObserverHandler.onConnected();
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -168,8 +140,8 @@ public final class SocketConnector implements Serializable {
         return "";
     }
 
-    public static void saveAll(String value) {
-        List<Client> users = new ArrayList<>();
+    public void saveAll(String value) {
+        List<Client> users;
         users = XMLReader.readConfig(value);
         DataHandler.setUsers(users);
     }
