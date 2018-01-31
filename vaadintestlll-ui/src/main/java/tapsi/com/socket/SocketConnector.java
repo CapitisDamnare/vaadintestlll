@@ -11,11 +11,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 
 public final class SocketConnector implements Serializable {
 
-    private static SocketConnector connector;
 
     private static Boolean connectionStatus = false;
 
@@ -27,24 +27,25 @@ public final class SocketConnector implements Serializable {
     private static ObjectInputStream objectInputStream = null;
     private static ObjectOutputStream objectOutputStream = null;
 
-    private static SocketConnector.SocketListener listener;
+    //private static SocketConnector.SocketListener listener;
+    private static List<SocketConnector.SocketListener> listeners = new ArrayList<>();
 
     public interface SocketListener {
         void onLogUpdate(String string);
     }
 
+    private static void onLogUpdate(String string) {
+        for (SocketConnector.SocketListener socketListener : listeners)
+            socketListener.onLogUpdate(string);
+    }
+
     public SocketConnector(int serverPort, String serverIPAddress) {
         this.serverPort = serverPort;
         this.serverIPAddress = serverIPAddress;
-        this.connector = this;
     }
 
-    public void setCustomListener(SocketListener listener) {
-        this.listener = listener;
-    }
-
-    public static SocketConnector getInstance() {
-        return connector;
+    public static void setCustomListener(SocketListener listener) {
+        listeners.add(listener);
     }
 
     public static String getConnectionStatus() {
@@ -102,7 +103,8 @@ public final class SocketConnector implements Serializable {
                         break;
                     case "log":
                         //TODO: Show in LOG Page
-                        listener.onLogUpdate(value);
+                        System.out.println("got here!");
+                        onLogUpdate(value);
                         break;
                     case "allowed":
                         //TODO: Show the allowed message
