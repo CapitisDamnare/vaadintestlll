@@ -18,6 +18,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.com.data.DataHandler;
+import tapsi.com.data.LogHandler;
 import tapsi.com.socket.SocketThread;
 import tapsi.com.status.Status;
 
@@ -47,6 +48,7 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         new SocketThread();
         new DataHandler();
+        new LogHandler();
         setPollInterval(2000);
 
         Responsive.makeResponsive(this);

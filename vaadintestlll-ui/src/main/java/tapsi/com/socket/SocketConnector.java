@@ -2,6 +2,7 @@ package tapsi.com.socket;
 
 import tapsi.com.data.Client;
 import tapsi.com.data.DataHandler;
+import tapsi.com.data.LogHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -76,6 +77,7 @@ public class SocketConnector implements Serializable {
                         ObserverHandler.onClientUpdate();
                         break;
                     case "log":
+                        LogHandler.setData(value);
                         ObserverHandler.onLogUpdate(value);
                         break;
                     case "allowed":
