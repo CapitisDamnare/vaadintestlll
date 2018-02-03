@@ -10,9 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 
 public class SocketConnector implements Serializable {
