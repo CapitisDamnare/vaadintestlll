@@ -54,6 +54,9 @@ public class UserForm extends UserFormDesign {
                 viewLogic.deleteProduct(currentUser);
             }
         });
+        delete.setVisible(false);
+        threadID.setReadOnly(true);
+        phoneID.setReadOnly(true);
 
     }
 

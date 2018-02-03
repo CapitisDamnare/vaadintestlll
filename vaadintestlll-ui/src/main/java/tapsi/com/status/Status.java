@@ -11,6 +11,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import tapsi.com.data.DataHandler;
+import tapsi.com.data.LogHandler;
 import tapsi.com.socket.ObserverHandler;
 import tapsi.com.socket.SocketConnector;
 import tapsi.com.socket.SocketThread;
@@ -21,9 +22,6 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
 
     public static final String VIEW_NAME = "Status";
     private Label pageLabel;
-    private Button sendMessage;
-    private Button sendRegister;
-    private Button sendLog;
 
     private Panel panel1;
     private Panel panel2;
@@ -49,18 +47,24 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         SocketThread.sendMessage("server:clients:GeoDoorVisu");
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         SocketThread.sendMessage("server:log:GeoDoorVisu");
     }
 
     @Override
     public void onLogUpdate(String string) {
         log.clear();
-        log.setValue(string);
+        log.setValue(LogHandler.getLast20Logs());
+        updateLogValues();
     }
 
     @Override
     public void onClientUpdate() {
-        updateValues();
+        updateClientValues();
     }
 
     @Override
@@ -76,7 +80,7 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
 
     @Override
     public void onDisconnected() {
-        panelLabel1.setValue("Connected");
+        panelLabel1.setValue("Disconnected");
         panelLabel1.setStyleName("panel_label");
     }
 
@@ -92,22 +96,6 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         pageLayout.setMargin(false);
         pageLayout.addComponents(pageLabel);
         pageLayout.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
-
-        HorizontalLayout btnLayout = new HorizontalLayout();
-        btnLayout.setStyleName("btn_layout");
-        sendMessage = new Button("Send Message");
-        sendMessage.addClickListener(e -> sendMsgBtnClick());
-
-        sendRegister = new Button("Send Register");
-        sendRegister.addClickListener(e -> sendRegisterBtnClick());
-
-        sendLog = new Button("Send Log");
-        sendLog.addClickListener(e -> sendLogBtnClick());
-
-        btnLayout.setMargin(false);
-        btnLayout.setSizeFull();
-        btnLayout.addComponents(sendMessage, sendRegister, sendLog);
-        //btnLayout.setComponentAlignment(sendMessage, Alignment.MIDDLE_LEFT);
 
         HorizontalLayout firstRow = new HorizontalLayout();
         firstRow.setSizeFull();
@@ -216,7 +204,7 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         panel5.setContent(horizontalLayout5);
 
         // 6. Panel
-        panel6 = new Panel("Time since restart");
+        panel6 = new Panel("Errors");
         HorizontalLayout horizontalLayout6 = new HorizontalLayout();
         Image image6 = new Image(null, new ThemeResource("img/ic_launcher.png"));
         panelLabel6 = new Label("This is my panel");
@@ -237,7 +225,7 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         secondRow.addComponents(panel4, panel5, panel6);
 
         // Log Text Area
-        log = new TextArea("Last Messages");
+        log = new TextArea("Last 20 log messages");
         log.setValue("This are the servers last Messsages");
         log.setStyleName("status_log");
         log.setSizeFull();
@@ -247,34 +235,26 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         HorizontalLayout spacer = new HorizontalLayout();
         spacer.setSizeFull();
 
-        addComponents(pageLayout, btnLayout, firstRow, secondRow, log, spacer);
+        addComponents(pageLayout, firstRow, secondRow, log, spacer);
 
         setMargin(false);
-        setExpandRatio(pageLayout, 0.05f);
-        setExpandRatio(btnLayout, 0.05f);
+        setExpandRatio(pageLayout, 0.1f);
         setExpandRatio(firstRow, 0.2f);
         setExpandRatio(secondRow, 0.2f);
         setExpandRatio(log, 0.45f);
         setExpandRatio(spacer, 0.05f);
     }
 
-    private void updateValues() {
+    private void updateLogValues() {
+        panelLabel5.setValue(LogHandler.getUpTime());
+        panelLabel6.setValue(LogHandler.getErrorMessages());
+
+    }
+
+    private void updateClientValues() {
         panelLabel2.setValue(DataHandler.lastConnected());
         panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
         panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
     }
-
-    public void sendMsgBtnClick() {
-        SocketThread.sendMessage("server:clients:GeoDoorVisu");
-    }
-
-    public void sendRegisterBtnClick() {
-        SocketThread.register("visuRegister:GeoDoorVisu");
-    }
-
-    public void sendLogBtnClick() {
-        SocketThread.sendMessage("server:log:GeoDoorVisu");
-    }
-
 
 }

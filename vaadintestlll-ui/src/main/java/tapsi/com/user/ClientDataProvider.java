@@ -87,9 +87,17 @@ public class ClientDataProvider
         if (filterText.isEmpty()) {
             return DataHandler.getUsers().stream();
         }
-        return DataHandler.getUsers().stream().filter(
-                client -> passesFilter(client.getName(), filterText)
-                        || passesFilter(client.getAllowed(), filterText));
+
+        if (filterText.length() == 1) {
+            return DataHandler.getUsers().stream().filter(
+                    client -> passesFilter(client.getName(), filterText)
+                            || passesFilter(client.getAllowed(), filterText));
+
+        } else {
+            return DataHandler.getUsers().stream().filter(
+                    client -> passesFilter(client.getName(), filterText)
+                            || passesFilter(client.getPhoneID(), filterText));
+        }
     }
 
     private boolean passesFilter(Object object, String filterText) {

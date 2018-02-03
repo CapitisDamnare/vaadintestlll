@@ -7,6 +7,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
 import tapsi.com.data.Client;
+import tapsi.com.socket.SocketThread;
 
 
 public class User extends CssLayout implements View {
@@ -67,7 +68,7 @@ public class User extends CssLayout implements View {
     public HorizontalLayout createTopBar() {
         filter = new TextField();
         filter.setStyleName("filter-textfield");
-        filter.setPlaceholder("Filter name, availability or category");
+        filter.setPlaceholder("'Name', 'Allowance' or 'Phone ID' ");
         ResetButtonForTextField.extend(filter);
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
@@ -76,6 +77,7 @@ public class User extends CssLayout implements View {
         newProduct.addStyleName(ValoTheme.BUTTON_PRIMARY);
         newProduct.setIcon(VaadinIcons.PLUS_CIRCLE);
         newProduct.addClickListener(click -> viewLogic.newClient());
+        newProduct.setVisible(false);
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
@@ -89,7 +91,9 @@ public class User extends CssLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        viewLogic.enter(event.getParameters());
+        SocketThread.sendMessage("server:clients:GeoDoorVisu");
+        if (event != null)
+            viewLogic.enter(event.getParameters());
     }
 
     public void showError(String msg) {
@@ -118,7 +122,6 @@ public class User extends CssLayout implements View {
 
     public void updateProduct(Client client) {
         dataProvider.save(client);
-        // FIXME: Grid used to scroll to the updated item
     }
 
     public void removeClient(Client client) {

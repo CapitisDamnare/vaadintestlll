@@ -13,15 +13,15 @@ public class DataHandler implements Serializable {
 
     private static List<Client> users = new ArrayList<>();
 
-    public static List<Client> getUsers() {
+    public synchronized static List<Client> getUsers() {
         return users;
     }
 
-    public static void setUsers(List<Client> users) {
+    public synchronized static void setUsers(List<Client> users) {
         DataHandler.users = users;
     }
 
-    public static Client getProductByID(int clientID) {
+    public synchronized static Client getProductByID(int clientID) {
         ListIterator<Client> iterator = users.listIterator();
         while (iterator.hasNext()) {
             Client client = iterator.next();
@@ -31,7 +31,7 @@ public class DataHandler implements Serializable {
         return null;
     }
 
-    public static void save(Client newClient) {
+    public synchronized static void save(Client newClient) {
         if (newClient.getId().equals(-1)) {
             addUser(newClient);
             return;
@@ -53,7 +53,7 @@ public class DataHandler implements Serializable {
 
     }
 
-    public static void delete(Client newClient) {
+    public synchronized static void delete(Client newClient) {
         int index = 0;
         ListIterator<Client> iterator = users.listIterator();
         while (iterator.hasNext()) {
@@ -66,15 +66,15 @@ public class DataHandler implements Serializable {
         users.remove(index);
     }
 
-    public static void addUser(Client client) {
+    public synchronized static void addUser(Client client) {
         users.add(client);
     }
 
-    public static int userCount() {
+    public synchronized static int userCount() {
         return users.size()-1;
     }
 
-    public static String lastConnected() {
+    public synchronized static String lastConnected() {
         ListIterator iterator = users.listIterator();
         Date tempDate = null;
         Date lastDate = null;
@@ -107,7 +107,7 @@ public class DataHandler implements Serializable {
             return lastDate.toString();
     }
 
-    public static int userAllowed() {
+    public synchronized static int userAllowed() {
         int count = 0;
         ListIterator iterator = users.listIterator();
         while (iterator.hasNext()) {

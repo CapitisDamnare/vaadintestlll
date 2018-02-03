@@ -1,26 +1,22 @@
 package tapsi;
 
-import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.*;
-import com.vaadin.navigator.ViewBeforeLeaveEvent;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.navigator.ViewLeaveAction;
-import tapsi.com.MainScreen;
-import tapsi.com.authentication.AccessControl;
-import tapsi.com.authentication.BasicAccessControl;
-import tapsi.com.authentication.LoginScreen;
-import tapsi.com.authentication.LoginScreen.LoginListener;
-
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+import tapsi.com.MainScreen;
+import tapsi.com.authentication.AccessControl;
+import tapsi.com.authentication.BasicAccessControl;
+import tapsi.com.authentication.LoginScreen;
+import tapsi.com.authentication.LoginScreen.LoginListener;
 import tapsi.com.data.DataHandler;
 import tapsi.com.data.LogHandler;
 import tapsi.com.socket.SocketThread;
 import tapsi.com.status.Status;
+
+import javax.servlet.annotation.WebServlet;
 
 /**
  * Main UI class of the application that shows either the login screen or the
@@ -49,6 +45,7 @@ public class MyUI extends UI {
         new SocketThread();
         new DataHandler();
         new LogHandler();
+        SocketThread.register("visuRegister:GeoDoorVisu");
         setPollInterval(2000);
 
         Responsive.makeResponsive(this);

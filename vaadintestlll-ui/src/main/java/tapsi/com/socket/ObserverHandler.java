@@ -20,6 +20,7 @@ public class ObserverHandler {
     }
 
     public static void onLogUpdate(String string) {
+
         for (SocketListener socketListener : listeners)
             socketListener.onLogUpdate(string);
     }

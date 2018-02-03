@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.util.List;
 
 
-public class SocketConnector implements Serializable {
+public class SocketConnector {
 
     private int serverPort;
     private String serverIPAddress;
@@ -28,7 +28,7 @@ public class SocketConnector implements Serializable {
         this.serverIPAddress = serverIPAddress;
     }
 
-    public boolean initConnection() {
+    public synchronized boolean initConnection() {
         try {
             InetAddress serverAddr = InetAddress.getByName(serverIPAddress);
             socket = new Socket(serverAddr, serverPort);
@@ -40,7 +40,7 @@ public class SocketConnector implements Serializable {
         return true;
     }
 
-    public String sendMessage(String msg, String serialNumber) {
+    public synchronized String sendMessage(String msg, String serialNumber) {
         ObserverHandler.onDisconnected();
         String answer = "";
         String socketinputObject;
