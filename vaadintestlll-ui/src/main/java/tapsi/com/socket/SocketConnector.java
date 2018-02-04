@@ -100,7 +100,7 @@ public class SocketConnector {
         return answer;
     }
 
-    public String sendUpdate(String msg, String serialNumber) {
+    public synchronized String sendUpdate(String msg, String serialNumber) {
         ObserverHandler.onDisconnected();
         String socketinputObject;
         String tempMsg = msg + "-" + serialNumber;

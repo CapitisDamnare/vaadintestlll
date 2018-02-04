@@ -12,7 +12,7 @@ public class SocketThread {
         ObserverHandler observerHandler = new ObserverHandler();
     }
 
-    public static void sendMessage(String message) {
+    public synchronized static void sendMessage(String message) {
         new Thread(() -> {
             sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendMessage(message, serverID);
@@ -22,7 +22,7 @@ public class SocketThread {
         }).start();
     }
 
-    public static void sendUpdate(String message) {
+    public synchronized static void sendUpdate(String message) {
         new Thread(() -> {
             sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendUpdate(message, serverID);
@@ -32,8 +32,8 @@ public class SocketThread {
         }).start();
     }
 
-    public static void register(String message) {
-        new Thread(() -> {
+    public synchronized static void register(String message) {
+        new  Thread(() -> {
             sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendMessage(message, serverID);
             if (answer.equals("")) {

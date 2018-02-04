@@ -34,6 +34,10 @@ public class LogHandler {
         return value;
     }
 
+    public synchronized static String filterLogs(String filter) {
+        List
+    }
+
     private synchronized static void clearData() {
         list.clear();
         errorMessages.clear();
