@@ -28,14 +28,22 @@ public class LogHandler {
 
     public synchronized static String getLast20Logs() {
         String value = "";
-        for (int iterator = list.size()-1; iterator >= list.size()-20; iterator--) {
+        for (int iterator = list.size() - 1; iterator >= list.size() - 20; iterator--) {
             value += list.get(iterator) + "\n";
         }
         return value;
     }
 
     public synchronized static String filterLogs(String filter) {
-        List
+        String result = "";
+        ListIterator<String> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            String row = iterator.next();
+            if (row.contains(filter)) {
+                result += row + "\n";
+            }
+        }
+        return result;
     }
 
     private synchronized static void clearData() {
@@ -51,8 +59,7 @@ public class LogHandler {
             if (!row.isEmpty()) {
                 temp = temp.replace(row + "\n", "");
                 list.add(row);
-            }
-            else
+            } else
                 temp = temp.substring(1, temp.length());
         }
         now = new Date();
