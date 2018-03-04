@@ -47,11 +47,6 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         SocketThread.sendMessage("server:clients:GeoDoorVisu");
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         SocketThread.sendMessage("server:log:GeoDoorVisu");
     }
 

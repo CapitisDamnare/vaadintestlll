@@ -68,13 +68,9 @@ public class LogPage extends VerticalLayout implements View, ObserverHandler.Soc
         firstRow.setSizeFull();
 
         filter = new TextField();
-        //filter.setStyleName("filter-textfield");
         filter.setPlaceholder("Filter");
         filter.setWidth("30%");
         filter.addValueChangeListener(click -> onFilterValueChange());
-        //ResetButtonForTextField.extend(filter);
-        //TODO: Add a Filter
-        //filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
         firstRow.addComponent(filter);
 
@@ -95,9 +91,9 @@ public class LogPage extends VerticalLayout implements View, ObserverHandler.Soc
 
         setMargin(false);
         addComponents(pageLayout, firstRow, secondRow, spacer);
-        setExpandRatio(pageLayout,0.08f);
+        setExpandRatio(pageLayout,0.1f);
         setExpandRatio(firstRow, 0.05f);
-        setExpandRatio(secondRow, 0.87f);
+        setExpandRatio(secondRow, 0.75f);
         setExpandRatio(spacer, 0.1f);
     }
 
