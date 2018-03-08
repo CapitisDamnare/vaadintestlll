@@ -3,7 +3,6 @@ package tapsi.com.socket;
 public class SocketThread {
 
     // TODO: Address changeable in the frontend?
-    private static SocketConnector sConnector;
     private static int serverPort = 5678;
     private static String serverIPAddress = "127.0.0.1";
     private static final String serverID = "13579";
@@ -14,7 +13,7 @@ public class SocketThread {
 
     public synchronized static void sendMessage(String message) {
         new Thread(() -> {
-            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            SocketConnector sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendMessage(message, serverID);
             if (answer.equals("")) {
                 System.out.println("sendMessage Timeout");
@@ -24,7 +23,7 @@ public class SocketThread {
 
     public synchronized static void sendUpdate(String message) {
         new Thread(() -> {
-            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            SocketConnector sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendUpdate(message, serverID);
             if (answer.equals("")) {
                 System.out.println("sendUpdate Socket Timeout");
@@ -34,7 +33,7 @@ public class SocketThread {
 
     public synchronized static void register(String message) {
         new  Thread(() -> {
-            sConnector = new SocketConnector(serverPort, serverIPAddress);
+            SocketConnector sConnector = new SocketConnector(serverPort, serverIPAddress);
             String answer = sConnector.sendMessage(message, serverID);
             if (answer.equals("")) {
                 System.out.println("Register Socket Timeout");

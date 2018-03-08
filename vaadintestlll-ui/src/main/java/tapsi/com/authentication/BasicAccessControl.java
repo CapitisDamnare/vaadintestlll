@@ -7,10 +7,13 @@ package tapsi.com.authentication;
  */
 public class BasicAccessControl implements AccessControl {
 
+    private String password = "";
+
     @Override
     public boolean signIn(String username, String password) {
         if (username == null || username.isEmpty())
             return false;
+
 
         CurrentUser.set(username);
         return true;
@@ -36,5 +39,4 @@ public class BasicAccessControl implements AccessControl {
     public String getPrincipalName() {
         return CurrentUser.get();
     }
-
 }
