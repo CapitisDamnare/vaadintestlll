@@ -1,8 +1,10 @@
 package tapsi.com.settings;
 
 import com.vaadin.navigator.View;
+import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
+import tapsi.MyUI;
 import tapsi.com.socket.SocketThread;
 
 public class Settings extends VerticalLayout implements View {
@@ -18,6 +20,10 @@ public class Settings extends VerticalLayout implements View {
     private Panel panel6;
 
     private Button btn1;
+    private Button savePassword;
+
+    private PasswordField password;
+    private PasswordField passwordCompare;
 
     public Settings() {
         buildView();
@@ -36,6 +42,7 @@ public class Settings extends VerticalLayout implements View {
         pageLayout.addComponents(pageLabel);
         pageLayout.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
 
+        // First row
         HorizontalLayout firstRow = new HorizontalLayout();
         firstRow.setSizeFull();
 
@@ -62,18 +69,80 @@ public class Settings extends VerticalLayout implements View {
 
         firstRow.addComponent(panel1);
 
-        // Spacer fro the bottom
+
+        // Second row
+        HorizontalLayout secondRow = new HorizontalLayout();
+        secondRow.setSizeFull();
+
+        // Second Row Items
+        // 1. Panel
+
+        panel2 = new Panel("Admin Password");
+        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        Image image2 = new Image(null, new ThemeResource("img/ic_launcher.png"));
+        password = new PasswordField("Password");
+        passwordCompare = new PasswordField("Repeat Password");
+        savePassword = new Button("Save Password");
+
+        horizontalLayout1.setStyleName("panel_layout");
+        image2.setStyleName("panel_image");
+        image2.setHeight("100%");
+        horizontalLayout1.setSizeFull();
+        horizontalLayout1.setMargin(true);
+        password.setSizeFull();
+        passwordCompare.setSizeFull();
+        horizontalLayout1.addComponents(image2, password, passwordCompare, savePassword);
+        //horizontalLayout1.setExpandRatio(savePassword, 1);
+        horizontalLayout1.setComponentAlignment(image2, Alignment.MIDDLE_LEFT);
+        horizontalLayout1.setComponentAlignment(password, Alignment.MIDDLE_LEFT);
+        horizontalLayout1.setComponentAlignment(passwordCompare, Alignment.MIDDLE_LEFT);
+        horizontalLayout1.setComponentAlignment(savePassword, Alignment.MIDDLE_CENTER);
+        horizontalLayout1.setExpandRatio(image2, 0.1f);
+        horizontalLayout1.setExpandRatio(password, 0.3f);
+        horizontalLayout1.setExpandRatio(passwordCompare, 0.3f);
+        horizontalLayout1.setExpandRatio(savePassword, 0.3f);
+        panel2.setSizeFull();
+        panel2.setContent(horizontalLayout1);
+
+        savePassword.addClickListener(click -> savePasswordOnClick());
+
+        secondRow.addComponent(panel2);
+
+        // Spacer from the bottom
         HorizontalLayout spacer = new HorizontalLayout();
         spacer.setSizeFull();
 
         setMargin(false);
-        addComponents(pageLayout, firstRow, spacer);
-        setExpandRatio(pageLayout,0.1f);
+        addComponents(pageLayout, firstRow, secondRow, spacer);
+        setExpandRatio(pageLayout, 0.1f);
         setExpandRatio(firstRow, 0.2f);
-        setExpandRatio(spacer, 0.7f);
+        setExpandRatio(secondRow, 0.2f);
+        setExpandRatio(spacer, 0.5f);
     }
 
     public void btn1OnClick() {
         SocketThread.sendMessage("server:restart:GeoDoorVisu");
+    }
+
+    public void savePasswordOnClick() {
+        if (!password.isEmpty() && !passwordCompare.isEmpty())
+            if (password.getValue().equals(passwordCompare.getValue())) {
+                MyUI.get().getAccessControl().safeAdminPassword(password.getValue());
+                password.setValue("");
+                passwordCompare.setValue("");
+            } else {
+                showPassNotification("Passwords don't match!");
+            }
+        else {
+            showPassNotification("Empty fields are not allowed!");
+        }
+    }
+
+    private void showPassNotification(String message) {
+        Notification notification = new Notification("Error!",
+                message,
+                Notification.Type.HUMANIZED_MESSAGE);
+        notification.setDelayMsec(2000);
+        notification.show(Page.getCurrent());
     }
 }

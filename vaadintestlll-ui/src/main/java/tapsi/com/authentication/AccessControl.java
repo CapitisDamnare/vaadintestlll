@@ -14,4 +14,6 @@ public interface AccessControl extends Serializable {
     public boolean isUserInRole(String role);
 
     public String getPrincipalName();
+
+    public void safeAdminPassword(String password);
 }

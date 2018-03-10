@@ -3,6 +3,7 @@ package tapsi.com.authentication;
 import java.io.Serializable;
 
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -16,6 +17,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import tapsi.com.socket.SocketThread;
 
 /**
  * UI content when the user is not logged in yet.
@@ -67,7 +69,7 @@ public class LoginScreen extends CssLayout {
         loginForm.setSizeUndefined();
         loginForm.setMargin(false);
 
-        loginForm.addComponent(username = new TextField("Username", "admin"));
+        loginForm.addComponent(username = new TextField("Username"));
         username.setWidth(15, Unit.EM);
         loginForm.addComponent(password = new PasswordField("Password"));
         password.setWidth(15, Unit.EM);
@@ -95,7 +97,7 @@ public class LoginScreen extends CssLayout {
         forgotPassword.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                showNotification(new Notification("Hint: Try anything"));
+                showNotification(new Notification("If you forgot your password you have to delete the\n us.txt file in temp folder of your OS to reset it\n to the standard password."));
             }
         });
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
@@ -107,7 +109,7 @@ public class LoginScreen extends CssLayout {
         loginInformation.setStyleName("login-information");
         Label loginInfoText = new Label(
                 "<h1>Login Information</h1>"
-                        + "Log in as &quot;admin&quot; to have full access. Log in with any other username to have read-only access. For all users, any password is fine",
+                        + "Log in as &quot;GDAdmin&quot; to have full access. Standard password is &quot;1234&quot;. Please change this in &quot;Settings&quot; after the login.",
                 ContentMode.HTML);
         loginInfoText.setSizeFull();
         loginInformation.addComponent(loginInfoText);

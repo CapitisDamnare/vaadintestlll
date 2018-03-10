@@ -11,10 +11,12 @@ import java.util.Map;
 
 public class CryptoHandler {
 
+    private String adminAcc = "GDAdmin-1234";
+
     private File sekiFile;
     private File usFile;
 
-    SecretKey originalKey;
+    private SecretKey originalKey;
 
     private Map<String, String> userMap = new HashMap<>();
 
@@ -50,6 +52,10 @@ public class CryptoHandler {
             }
         }
         readFiles();
+    }
+
+    public Map<String, String> getUserMap() {
+        return userMap;
     }
 
     private boolean createFiles() {
@@ -155,7 +161,7 @@ public class CryptoHandler {
             writer.println(encodedKey);
             writer.close();
 
-            writeUserToFile("GDAdmin-1234");
+            writeUserToFile(adminAcc);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -177,7 +183,7 @@ public class CryptoHandler {
 
             try {
                 File dir2 = new File(usFile.getParentFile(), usFile.getName());
-                PrintStream writer2 = new PrintStream(new FileOutputStream(dir2, true));
+                PrintStream writer2 = new PrintStream(new FileOutputStream(dir2, false));
                 writer2.println(textString);
                 writer2.close();
 
