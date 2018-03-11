@@ -33,8 +33,8 @@ public class CryptoHandler {
             usPath += "us.txt";
         }
 
-        System.out.println(sekiPath + "\n" + usPath);
-        System.out.println(System.getProperty("os.name"));
+        //System.out.println(sekiPath + "\n" + usPath);
+        //System.out.println(System.getProperty("os.name"));
 
         sekiFile = new File(sekiPath);
         usFile = new File(usPath);
@@ -123,7 +123,6 @@ public class CryptoHandler {
         }
 
         readUsers();
-        System.out.println("Read successful");
     }
 
     public void readUsers() {
@@ -146,7 +145,6 @@ public class CryptoHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Read Users successful - map size: " + userMap.size());
     }
 
     private void writeUserToFile() {
@@ -192,15 +190,13 @@ public class CryptoHandler {
             }
 
         } catch (Exception e) {
-            System.out.println("Exception");
+            e.printStackTrace();
         }
-        System.out.println("Write successful");
     }
 
     private String decrypt(String value, SecretKey myDesKey) {
         String s = null;
         try {
-            System.out.println("Before: " + value);
             Cipher desCipher;
 
             byte[] textDecrypted;
@@ -209,7 +205,6 @@ public class CryptoHandler {
             desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
             textDecrypted = desCipher.doFinal(original);
             s = new String(textDecrypted);
-            System.out.println("After: " + s);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {

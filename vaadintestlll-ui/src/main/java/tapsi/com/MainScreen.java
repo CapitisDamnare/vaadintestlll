@@ -25,10 +25,14 @@ public class MainScreen extends HorizontalLayout {
 
         setSpacing(false);
         setStyleName("main-screen");
+        setWidth("100%");
+        setHeight("100%");
 
         CssLayout viewContainer = new CssLayout();
         viewContainer.addStyleName("valo-content");
-        viewContainer.setSizeFull();
+        //viewContainer.setSizeFull();
+        viewContainer.setWidth("100%");
+        //viewContainer.setHeight("100%");
 
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
@@ -49,7 +53,7 @@ public class MainScreen extends HorizontalLayout {
         addComponent(menu);
         addComponent(viewContainer);
         setExpandRatio(viewContainer, 1);
-        setSizeFull();
+        //setSizeFull();
     }
 
     // notify the view menu about view changes so that it can display which view
