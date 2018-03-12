@@ -40,7 +40,11 @@ public class MyUI extends UI {
      */
     @Override
     protected void refresh(VaadinRequest request) {
-        getNavigator().getCurrentView().enter(null);
+        try {
+            getNavigator().getCurrentView().enter(null);
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
         super.refresh(request);
     }
 

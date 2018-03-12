@@ -4,10 +4,7 @@ import tapsi.com.data.Client;
 import tapsi.com.data.DataHandler;
 import tapsi.com.data.LogHandler;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
@@ -28,7 +25,7 @@ public class SocketConnector {
         this.serverIPAddress = serverIPAddress;
     }
 
-    public synchronized boolean initConnection() {
+    private synchronized boolean initConnection() {
         try {
             InetAddress serverAddr = InetAddress.getByName(serverIPAddress);
             socket = new Socket(serverAddr, serverPort);
@@ -85,8 +82,10 @@ public class SocketConnector {
                 ObserverHandler.onConnected();
                 answer = command;
             }
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (EOFException e) {
+            return answer;
+        }catch (Exception e) {
+            e.printStackTrace();
             return answer;
         } finally {
             if (socket != null)

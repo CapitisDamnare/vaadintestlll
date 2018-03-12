@@ -28,6 +28,14 @@ public class LogHandler {
 
     public synchronized static String getLast20Logs() {
         String value = "";
+        if (list.size() <= 20) {
+            ListIterator<String> iterator = list.listIterator();
+            while (iterator.hasNext()) {
+                String row = iterator.next();
+                value += row + "\n";
+            }
+            return value;
+        }
         for (int iterator = list.size() - 1; iterator >= list.size() - 20; iterator--) {
             value += list.get(iterator) + "\n";
         }

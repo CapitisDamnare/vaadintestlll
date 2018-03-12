@@ -6,9 +6,34 @@ public class SocketThread {
     private static int serverPort = 5678;
     private static String serverIPAddress = "127.0.0.1";
     private static final String serverID = "13579";
+    private static int serverUserPort = 1234;
 
     public SocketThread() {
         ObserverHandler observerHandler = new ObserverHandler();
+    }
+
+    public static int getServerPort() {
+        return serverPort;
+    }
+
+    public static void setServerPort(int serverPort) {
+        SocketThread.serverPort = serverPort;
+    }
+
+    public static String getServerIPAddress() {
+        return serverIPAddress;
+    }
+
+    public static void setServerIPAddress(String serverIPAddress) {
+        SocketThread.serverIPAddress = serverIPAddress;
+    }
+
+    public static int getServerUserPort() {
+        return serverUserPort;
+    }
+
+    public static void setServerUserPort(int serverUserPort) {
+        SocketThread.serverUserPort = serverUserPort;
     }
 
     public synchronized static void sendMessage(String message) {

@@ -66,6 +66,34 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo;
 
+  .v-ui[height-range~="0-250px"] {
+    .valo-content {
+      height: 300%;
+    }
+  }
+
+  .v-ui[height-range~="250-390px"] {
+    .valo-content {
+      height: 200%;
+    }
+  }
+
+  .v-ui[height-range~="390-500px"] {
+    .valo-content {
+      height: 150%;
+    }
+  }
+
+  .v-ui[height-range~="500-1500px"] {
+    .valo-content {
+      height: 100%;
+    }
+  }
+
+  .main-screen {
+    overflow: visible;
+  }
+
   .btn_layout {
     margin-top: 16px;
   }
