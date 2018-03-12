@@ -34,12 +34,22 @@ public class MyUI extends UI {
 
     private AccessControl accessControl = new BasicAccessControl();
 
+    /**
+     *
+     * @param request
+     */
     @Override
     protected void refresh(VaadinRequest request) {
         getNavigator().getCurrentView().enter(null);
         super.refresh(request);
     }
 
+    /**
+     * Initialize all handlers, register with the server and show the login screen.
+     * After a successful login the main view will be shown.
+     *
+     * @param vaadinRequest
+     */
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         new SocketThread();
@@ -63,12 +73,20 @@ public class MyUI extends UI {
         }
     }
 
+    /**
+     *
+     */
     protected void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
         getNavigator().navigateTo(Status.VIEW_NAME);
     }
 
+    /**
+     * returns the
+     *
+     * @return MyUI
+     */
     public static MyUI get() {
         return (MyUI) UI.getCurrent();
     }
