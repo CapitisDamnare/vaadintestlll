@@ -35,8 +35,9 @@ public class MyUI extends UI {
     private AccessControl accessControl = new BasicAccessControl();
 
     /**
+     * Every time the browser refreshes i.e. F5 is pressed the "enter" event is invoked.
      *
-     * @param request
+     * @param request don't need the parameter in this case
      */
     @Override
     protected void refresh(VaadinRequest request) {
@@ -52,7 +53,7 @@ public class MyUI extends UI {
      * Initialize all handlers, register with the server and show the login screen.
      * After a successful login the main view will be shown.
      *
-     * @param vaadinRequest
+     * @param vaadinRequest VaadinRequest
      */
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -78,6 +79,7 @@ public class MyUI extends UI {
     }
 
     /**
+     * Navigates to the main view.
      *
      */
     protected void showMainView() {
@@ -89,12 +91,17 @@ public class MyUI extends UI {
     /**
      * returns the
      *
-     * @return MyUI
+     * @return returns the main UI
      */
     public static MyUI get() {
         return (MyUI) UI.getCurrent();
     }
 
+    /**
+     *  A getter to the AccessControl interface
+     *
+     * @return returns the interface to the BasicAccessControl
+     */
     public AccessControl getAccessControl() {
         return accessControl;
     }

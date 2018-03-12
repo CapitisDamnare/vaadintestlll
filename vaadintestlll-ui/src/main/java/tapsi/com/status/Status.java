@@ -18,6 +18,9 @@ import tapsi.com.socket.SocketThread;
 
 import java.awt.*;
 
+/**
+ *  The status view with the most important ui components for the GeoDoorServer
+ */
 public class Status extends VerticalLayout implements View, ObserverHandler.SocketListener {
 
     public static final String VIEW_NAME = "Status";
@@ -39,17 +42,31 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
 
     private TextArea log;
 
+    /**
+     *  Constructor which adds the observer pattern listener.
+     */
     public Status() {
         ObserverHandler.addCustomListener(this);
         buildView();
     }
 
+    /**
+     * Uses the enter event for refreshes.
+     * Every refresh is calling for new data from the server.
+     *
+     * @param event event is not used here.
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         SocketThread.sendMessage("server:clients:GeoDoorVisu");
         SocketThread.sendMessage("server:log:GeoDoorVisu");
     }
 
+    /**
+     * Clears the log component and updates it with the new data.
+     *
+     * @param string a string with all log data. But isn't used here on the status view.
+     */
     @Override
     public void onLogUpdate(String string) {
         log.clear();
@@ -79,6 +96,9 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         panelLabel1.setStyleName("panel_label");
     }
 
+    /**
+     * Creates all components and configures all their layouts.
+     */
     private void buildView() {
         setSizeFull();
         HorizontalLayout pageLayout = new HorizontalLayout();
@@ -240,10 +260,12 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         setExpandRatio(spacer, 0.05f);
     }
 
+    /**
+     *  Updates the
+     */
     private void updateLogValues() {
         panelLabel5.setValue(LogHandler.getUpTime());
         panelLabel6.setValue(LogHandler.getErrorMessages());
-
     }
 
     private void updateClientValues() {

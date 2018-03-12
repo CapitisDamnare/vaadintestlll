@@ -14,8 +14,8 @@ import tapsi.com.settings.Settings;
 import tapsi.com.status.Status;
 
 /**
- * Content of the UI when the user is logged in.
- * 
+ * Creates the menu, all views and ads them to the navigator.
+ * The view in the CSSLayout will be changed from the navigator.
  * 
  */
 public class MainScreen extends HorizontalLayout {
@@ -30,9 +30,7 @@ public class MainScreen extends HorizontalLayout {
 
         CssLayout viewContainer = new CssLayout();
         viewContainer.addStyleName("valo-content");
-        //viewContainer.setSizeFull();
         viewContainer.setWidth("100%");
-        //viewContainer.setHeight("100%");
 
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
