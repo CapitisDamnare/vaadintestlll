@@ -17,9 +17,17 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+/**
+ * Writes the changed users into a xml which will be sent over the socket connection to the server.
+ */
 public class XMLWriter {
     private static String xml;
 
+    /**
+     * Getter for the finished xml string.
+     *
+     * @return the finished written xml
+     */
     public static String getXml() {
         try {
             saveConfig();
@@ -29,6 +37,11 @@ public class XMLWriter {
         return xml;
     }
 
+    /**
+     * Creates the user xml and writes it to a string.
+     *
+     * @throws Exception throws an exception if writing to the string is not possible.
+     */
     public static void saveConfig() throws Exception {
         StringWriter stringOut = new StringWriter();
 
@@ -67,6 +80,12 @@ public class XMLWriter {
         eventWriter.close();
     }
 
+    /**
+     *
+     * @param eventWriter {@link XMLEventWriter}
+     * @param eventFactory {@link XMLEventFactory}
+     * @throws XMLStreamException {@link XMLStreamException}
+     */
     private static void createNodesFromClients(XMLEventWriter eventWriter, XMLEventFactory eventFactory) throws XMLStreamException {
         XMLEvent end = eventFactory.createDTD("\n");
         XMLEvent tab = eventFactory.createDTD("\t");

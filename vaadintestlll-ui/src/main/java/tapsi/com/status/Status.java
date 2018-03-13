@@ -74,6 +74,9 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
         updateLogValues();
     }
 
+    /**
+     * @link updateClientValues
+     */
     @Override
     public void onClientUpdate() {
         updateClientValues();
@@ -84,12 +87,18 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
 
     }
 
+    /**
+     * Sets the components to green if the connection was successful.
+     */
     @Override
     public void onConnected() {
         panelLabel1.setValue("Connected");
         panelLabel1.setStyleName("panel_label_green");
     }
 
+    /**
+     * Sets the components to red if the connection wasn't successful.
+     */
     @Override
     public void onDisconnected() {
         panelLabel1.setValue("Disconnected");
@@ -261,17 +270,19 @@ public class Status extends VerticalLayout implements View, ObserverHandler.Sock
     }
 
     /**
-     *  Updates the
+     * Updates the values of the components for the logs.
      */
     private void updateLogValues() {
         panelLabel5.setValue(LogHandler.getUpTime());
         panelLabel6.setValue(LogHandler.getErrorMessages());
     }
 
+    /**
+     * Updates the client component information.
+     */
     private void updateClientValues() {
         panelLabel2.setValue(DataHandler.lastConnected());
         panelLabel3.setValue(Integer.toString(DataHandler.userAllowed()));
         panelLabel4.setValue(Integer.toString(DataHandler.userCount()));
     }
-
 }
