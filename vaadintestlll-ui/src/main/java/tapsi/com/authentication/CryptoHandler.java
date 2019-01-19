@@ -24,6 +24,9 @@ public class CryptoHandler {
         String sekiPath = System.getProperty("java.io.tmpdir");
         String usPath = System.getProperty("java.io.tmpdir");
 
+        //String sekiPath = "/home/pi/GeoDoorServer";
+        //String usPath = "/home/pi/GeoDoorServer";
+
         if (System.getProperty("os.name").equals("Linux")) {
             sekiPath += "/seki.txt";
             usPath += "/us.txt";
@@ -33,8 +36,8 @@ public class CryptoHandler {
             usPath += "us.txt";
         }
 
-        //System.out.println(sekiPath + "\n" + usPath);
-        //System.out.println(System.getProperty("os.name"));
+        System.out.println(sekiPath + "\n" + usPath);
+        System.out.println(System.getProperty("os.name"));
 
         sekiFile = new File(sekiPath);
         usFile = new File(usPath);
